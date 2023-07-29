@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * devaice service
+ * brend service
  */
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService('api::devaice.devaice');
+module.exports = createCoreService('api::brend.brend');

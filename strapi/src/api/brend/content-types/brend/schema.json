@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "brends",
+  "info": {
+    "singularName": "brend",
+    "pluralName": "brends",
+    "displayName": "Брэнд",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "devajsies": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::device.device",
+      "mappedBy": "brend"
+    }
+  }
+}

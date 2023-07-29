@@ -1,9 +1,9 @@
 {
   "kind": "collectionType",
-  "collectionName": "devaices",
+  "collectionName": "devices",
   "info": {
-    "singularName": "devaice",
-    "pluralName": "devaices",
+    "singularName": "device",
+    "pluralName": "devices",
     "displayName": "Девайсы",
     "description": ""
   },
@@ -21,7 +21,7 @@
       "type": "integer",
       "required": true
     },
-    "img": {
+    "image": {
       "type": "media",
       "multiple": false,
       "required": true,
@@ -29,9 +29,16 @@
         "images"
       ]
     },
-    "image": {
+    "img": {
       "type": "string",
-      "required": true
+      "required": true,
+      "unique": true
+    },
+    "brend": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::brend.brend",
+      "inversedBy": "devajsies"
     }
   }
 }

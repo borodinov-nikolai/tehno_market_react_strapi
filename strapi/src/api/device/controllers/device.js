@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * devaice controller
+ * device controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::devaice.devaice');
+module.exports = createCoreController('api::device.device');

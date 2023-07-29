@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * devaice router
+ * brend router
  */
 
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
-module.exports = createCoreRouter('api::devaice.devaice');
+module.exports = createCoreRouter('api::brend.brend');

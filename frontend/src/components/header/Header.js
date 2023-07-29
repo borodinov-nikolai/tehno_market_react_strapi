@@ -20,11 +20,7 @@ const Header = () => {
  
   React.useEffect( ()=>{
      const getItems = async()=>{
-      await axios.get('http://localhost:1337/api/devaices', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
+      await axios.get('http://localhost:1337/api/devices?populate=*')
       .then(res=>console.log(res.data))
      }
    
