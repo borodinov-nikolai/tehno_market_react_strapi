@@ -55,7 +55,7 @@ const Header = () => {
             bg="outline-light"
             className="text-success fs-5"
           >
-            Авторизован
+            Тест
             <br />
 
           </Badge>
