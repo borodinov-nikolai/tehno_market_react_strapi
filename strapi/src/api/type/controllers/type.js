@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * brend controller
+ * type controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::brend.brend');
+module.exports = createCoreController('api::type.type');

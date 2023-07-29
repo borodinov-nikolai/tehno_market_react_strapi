@@ -11,7 +11,7 @@ function HeaderNavbar() {
 
 
 
-<Container>
+      <Container>
         <div className="header__down-menu bg-dark">
 
           <li
@@ -22,14 +22,14 @@ function HeaderNavbar() {
           >
             <NavLink
               to="catalog/smartphones"
-              className="link-white text-decoration-none"
+              className="link-white text-decoration-none animate__animated animate__flipInX"
             >
               Сматрфоны
             </NavLink>
             <ul className={`header__down-submenu ${visibilitySmart}`}>
               <NavLink
                 to="catalog/poco"
-                className="link-white text-decoration-none"
+                className="link-white text-decoration-none "
               >
                 <li>Poco</li>
               </NavLink>
@@ -67,7 +67,7 @@ function HeaderNavbar() {
             onMouseOut={() => setVisibilityPad("none")}>
             <NavLink
               to="catalog/tabs"
-              className="link-white text-decoration-none"
+              className="link-white text-decoration-none animate__animated animate__flipInX"
             >
               Планшеты
             </NavLink>
@@ -79,7 +79,7 @@ function HeaderNavbar() {
             </ul>
           </li>
           <li className="header__down-menu-item header__down-menu-noutbooks">
-            Ноутбуки
+            <NavLink className="link-white text-decoration-none animate__animated animate__flipInX" >Ноутбуки</NavLink>
             <ul className="header__down-submenu none">
               <li>MacBook Air</li>
               <li>MacBook Pro</li>
@@ -90,7 +90,7 @@ function HeaderNavbar() {
             </ul>
           </li>
           <li className="header__down-menu-item header__down-menu-tvs">
-            Телевизоры
+            <NavLink className="link-white text-decoration-none animate__animated animate__flipInX">Телевизоры</NavLink>
             <ul className="header__down-submenu none">
               <li>TCL</li>
               <li>LG</li>
@@ -101,7 +101,7 @@ function HeaderNavbar() {
             </ul>
           </li>
           <li className="header__down-menu-item header__down-menu-consoles">
-            Игровые консоли
+            <NavLink className="link-white text-decoration-none animate__animated animate__flipInX">Игровые консоли</NavLink>
             <ul className="header__down-submenu none">
               <li>Sony</li>
               <li>Nintendo</li>

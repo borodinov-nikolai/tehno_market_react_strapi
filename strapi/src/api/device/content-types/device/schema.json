@@ -4,7 +4,7 @@
   "info": {
     "singularName": "device",
     "pluralName": "devices",
-    "displayName": "Девайсы",
+    "displayName": "Device",
     "description": ""
   },
   "options": {
@@ -34,11 +34,15 @@
       "required": true,
       "unique": true
     },
-    "brend": {
+    "brand": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::brend.brend",
-      "inversedBy": "devajsies"
+      "relation": "oneToOne",
+      "target": "api::brand.brand"
+    },
+    "type": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::type.type"
     }
   }
 }

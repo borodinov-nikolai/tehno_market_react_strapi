@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios'
 
-
 const AuthorizationModal = () => {
   const [show, setShow] = React.useState(false)
   const [email, setEmail] = React.useState('')
@@ -13,25 +12,34 @@ const AuthorizationModal = () => {
   const handleClose = () => setShow(false);
 
 
-
   const login = async (email, password) => {
        await axios.post('http://localhost:1337/api/auth/local', {
          identifier: email,
          password: password
        })
        .then(res=> localStorage.setItem('token', res.data.jwt))
-       
+
+
+
   }
+
+
+     
+
+ 
+
+
+
 
   return (
 
 
     <>
-      <Button style={{ fontSize: '16px' }} size='sm' variant={'outline-dark '}  onClick={handleShow}>
-      <i class="bi bi-box-arrow-in-right"></i> Войти
+      <Button  className='animate__animated animate__fadeInDown' style={{ fontSize: '16px' }} size='sm' variant={'outline-dark '}  onClick={handleShow}>
+      <i className="bi bi-box-arrow-in-right"></i> Войти
       </Button>
 
-      <Modal size={'lg'} show={show} onHide={handleClose}>
+      <Modal  size={'lg'} show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>
 
