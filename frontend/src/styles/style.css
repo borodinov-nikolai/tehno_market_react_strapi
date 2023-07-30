@@ -32,9 +32,9 @@ body {
   background: rgb(255, 255, 255);    
 }   
 
-.container {
-    max-width: 1720px !important
-}
+/* .container {
+    max-width: 1400px !important
+} */
 
 
 .header__up {
