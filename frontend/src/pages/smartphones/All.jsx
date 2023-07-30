@@ -32,9 +32,9 @@ const All = () => {
 
   return (
     <>
-    <div className='d-flex mt-5 justify-content-end'>
+    <div className= 'sort__dropdown d-flex mt-5 justify-content-end animate__animated animate__bounceInRight'>
       <span className='me-4 pt-2' >Сортировка:</span>
-       <Form.Select aria-label="Default select" className='d-inline-block'  style={{width: '240px', backgroundColor: "#dbdbdb"}}>
+       <Form.Select aria-label="Default select" className='d-inline-block'  style={{width: '240px', backgroundColor: "rgb(235 235 235)"}}>
         <option>По названию</option>
         <option value="1">по цене(повозрастанию)</option>
         <option value="2">по цене(по убыванию)</option>
