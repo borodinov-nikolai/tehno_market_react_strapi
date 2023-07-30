@@ -2,12 +2,21 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import axios from 'axios'
+import axios from 'axios';
+import {useSelector, useDispatch} from 'react-redux';
+import { setIsAuth } from '../../../redux/slices/userSlice';
+
+
+
 
 const AuthorizationModal = () => {
-  const [show, setShow] = React.useState(false)
-  const [email, setEmail] = React.useState('')
-  const [password, setPassword] = React.useState('')
+    const [show, setShow] = React.useState(false);
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const isAuth = useSelector((state)=> state.user.isAuth);
+  const dispatch = useDispatch();
+
+  
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
@@ -17,21 +26,13 @@ const AuthorizationModal = () => {
          identifier: email,
          password: password
        })
-       .then(res=> localStorage.setItem('token', res.data.jwt))
+       .then((res) => {localStorage.setItem('token', res.data.jwt);
+          dispatch(setIsAuth(true))
+      })
+}   
+       
 
-
-
-  }
-
-
-     
-
- 
-
-
-
-
-  return (
+      return (
 
 
     <>

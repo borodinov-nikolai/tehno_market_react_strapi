@@ -2,7 +2,8 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-
+// import {useSelector, useDispatch} from 'react-redux';
+// import { setIsAuth } from '../../redux/slices/userSlice';
 
 
 const RegistrationModal = () => {

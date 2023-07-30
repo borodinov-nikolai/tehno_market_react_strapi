@@ -21,7 +21,7 @@ function HeaderNavbar() {
             className="header__down-menu-item header__down-menu-phones"
           >
             <NavLink
-              to="catalog/smartphones"
+              to="all"
               className="link-white text-decoration-none animate__animated animate__flipInX"
             >
               Сматрфоны
