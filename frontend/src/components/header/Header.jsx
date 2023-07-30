@@ -27,7 +27,7 @@ const Header = () => {
     <>
       <Navbar bg="light" data-bs-theme="light">
         <Container>
-          <NavLink to = '/'>
+          <NavLink to = '/' className={'text-decoration-none'}>
             <Navbar.Brand href="#home" className="animate__animated animate__fadeInDown" >
               <img src={logo} width={'30px'} height={"30px"} className="d-inline-block" alt="logo" />{' '}
               Техно маркет
@@ -52,7 +52,7 @@ const Header = () => {
 
           <AuthorizationModal/>
 
-         {isAuth && <Button variant='dark' onClick={()=>{localStorage.removeItem('token'); dispatch(setIsAuth(false))}} size=''>Выйти</Button>}
+         {isAuth && <Button variant='dark' onClick={()=>{localStorage.removeItem('token'); dispatch(setIsAuth(false))}} style={{fontSize:'16px'}} size='sm'>Выйти</Button>}
 
           {/* <NavLink to='http://localhost:1337/admin'>
 
