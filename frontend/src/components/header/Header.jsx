@@ -30,7 +30,7 @@ const Header = () => {
           <NavLink to = '/' className={'text-decoration-none'}>
             <Navbar.Brand href="#home" className="animate__animated animate__fadeInDown" >
               <img src={logo} width={'30px'} height={"30px"} className="d-inline-block" alt="logo" />{' '}
-              Техно маркет
+              Техно маркет!
             </Navbar.Brand>
           </NavLink>
           <Nav className="me-auto">
