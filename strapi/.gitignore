@@ -115,4 +115,4 @@
 # .strapi-updater.json
 
 node_modules/
-public/uploads/
+public/
