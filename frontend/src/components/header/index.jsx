@@ -23,10 +23,7 @@ const Header = () => {
       <Navbar bg="light" data-bs-theme="light">
         <Container>
           <NavLink to="/" className={"text-decoration-none animate__animated animate__fadeInDown"} >
-            <Navbar.Brand
-              href="#home"
-            
-            >
+            <Navbar.Brand>
               <img
                 src={logo}
                 width={"30px"}
@@ -92,7 +89,7 @@ const Header = () => {
               style={{ fontSize: "16px" }}
               size="sm"
             >
-              <i class="bi bi-box-arrow-left me-1"></i>Выйти
+              <i className="bi bi-box-arrow-left me-1"></i>Выйти
             </Button>
           )}
 

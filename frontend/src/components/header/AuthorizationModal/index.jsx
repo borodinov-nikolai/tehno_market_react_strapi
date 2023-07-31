@@ -13,7 +13,6 @@ const AuthorizationModal = () => {
     const [show, setShow] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const isAuth = useSelector((state)=> state.user.isAuth);
   const dispatch = useDispatch();
 
   

@@ -1,17 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Pagination from 'react-bootstrap/Pagination';
 import styles from "./Pagination.module.scss"
 import Container from 'react-bootstrap/esm/Container';
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import { setPage } from '../../../redux/slices/paginationSlice';
 
 const PaginationBar = () => {
-   let pageCount = 18
-    let active = 1;
-    let items = [];
+     const pageCount = useSelector((state)=>state.pagination.pageCount)
+     const page = useSelector((state)=>state.pagination.page)
+     let active = page;
+     let items = [];
+
+  const dispatch = useDispatch();
+
+
+  React.useEffect(()=>{
+    if(pageCount<page) {
+      dispatch(setPage(1));
+    }
+
+  },[page,pageCount]);
+
 for (let number = 1; number <= pageCount; number++) {
   items.push(
-    <Pagination.Item key={number} active={number === active} >
+    <Pagination.Item onClick={()=>dispatch(setPage(number))} key={number} active={number === active} >
       {number}
     </Pagination.Item>,
   );
@@ -20,13 +32,15 @@ for (let number = 1; number <= pageCount; number++) {
   return (
   
       <Container>
-        <Pagination className={styles.holder + ' animate__animated animate__bounceInUp'}>
+
+        {pageCount<1? '' : <Pagination className={styles.holder + ' animate__animated animate__bounceInUp'}>
           <Pagination.First />
           <Pagination.Prev/>
               {items}
               <Pagination.Next />
           <Pagination.Last />
-        </Pagination>
+        </Pagination>}
+        
       </Container>
 
   )
