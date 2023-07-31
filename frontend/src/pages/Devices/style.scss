@@ -1,0 +1,22 @@
+
+
+
+
+button {
+    &:hover {
+        background-color: rgb(87, 87, 87) !important;
+        color: white !important;
+    } 
+}
+
+
+
+.active>.page-link{
+    background-color: rgb(50, 49, 49) !important;
+    border-color: rgb(50, 49, 49) !important;
+    color: white !important;
+}
+
+.page-link {
+    color: black !important
+}

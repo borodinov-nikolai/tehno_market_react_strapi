@@ -6,8 +6,8 @@ import Button from "react-bootstrap/Button";
 import logo from "../../assets/img/pngegg.png";
 import call from "../../assets/img/call.svg";
 import cart from "../../assets/img/cart.png";
-import AuthorizationModal from "./Authorization/AuthorizationModal";
-import RegistrationModal from "./Authorization/RegistrationModal";
+import AuthorizationModal from "./AuthorizationModal";
+import RegistrationModal from "./RegistrationModal/index.jsx";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -92,7 +92,7 @@ const Header = () => {
               style={{ fontSize: "16px" }}
               size="sm"
             >
-              Выйти
+              <i class="bi bi-box-arrow-left me-1"></i>Выйти
             </Button>
           )}
 

@@ -1,15 +1,14 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import React from 'react'
-import Header from './components/header/Header'
-import Footer from './components/footer/Footer'
-import './styles/style.css'
-import './styles/phone.css'
-import 'animate.css'
+import Header from './components/header'
+import Footer from './components/Footer'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './styles/style.scss'
+import 'animate.css'
 import Container from 'react-bootstrap/esm/Container';
-import All from './pages/smartphones/All';
 import {useSelector, useDispatch} from 'react-redux';
 import { setIsAuth } from './redux/slices/userSlice';
+import Devices from './pages/Devices'
 
 
 
@@ -42,7 +41,7 @@ function App() {
        <Header/>
        <Container  className='min-vh-100'>
       <Routes>
-      <Route path='/all' element={<All/>}/>
+      <Route path='/' element={<Devices/>}/>
       </Routes>
        </Container>
       <Footer/> 
