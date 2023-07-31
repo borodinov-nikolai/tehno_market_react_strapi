@@ -22,7 +22,7 @@ function HeaderNavbar() {
           >
             <NavLink
               to="all"
-              className="link-white text-decoration-none animate__animated animate__flipInX"
+              className="link-white text-decoration-none"
             >
               Сматрфоны
             </NavLink>
@@ -67,7 +67,7 @@ function HeaderNavbar() {
             onMouseOut={() => setVisibilityPad("none")}>
             <NavLink
               to="catalog/tabs"
-              className="link-white text-decoration-none animate__animated animate__flipInX"
+              className="link-white text-decoration-none"
             >
               Планшеты
             </NavLink>
@@ -79,7 +79,7 @@ function HeaderNavbar() {
             </ul>
           </li>
           <li className="header__down-menu-item header__down-menu-noutbooks">
-            <NavLink className="link-white text-decoration-none animate__animated animate__flipInX" >Ноутбуки</NavLink>
+            <NavLink className="link-white text-decoration-none" >Ноутбуки</NavLink>
             <ul className="header__down-submenu none">
               <li>MacBook Air</li>
               <li>MacBook Pro</li>
@@ -90,7 +90,7 @@ function HeaderNavbar() {
             </ul>
           </li>
           <li className="header__down-menu-item header__down-menu-tvs">
-            <NavLink className="link-white text-decoration-none animate__animated animate__flipInX">Телевизоры</NavLink>
+            <NavLink className="link-white text-decoration-none">Телевизоры</NavLink>
             <ul className="header__down-submenu none">
               <li>TCL</li>
               <li>LG</li>
@@ -101,7 +101,7 @@ function HeaderNavbar() {
             </ul>
           </li>
           <li className="header__down-menu-item header__down-menu-consoles">
-            <NavLink className="link-white text-decoration-none animate__animated animate__flipInX">Игровые консоли</NavLink>
+            <NavLink className="link-white text-decoration-none">Игровые консоли</NavLink>
             <ul className="header__down-submenu none">
               <li>Sony</li>
               <li>Nintendo</li>

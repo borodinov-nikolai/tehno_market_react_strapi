@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 const ProductCard = ({ name, price, img }) => {
-  const [animation, setAnimation] = React.useState('animate__animated')
+  const [animation, setAnimation] = React.useState('')
   return (
     <Card style={{ width: '235px', }} onMouseEnter={()=>{setAnimation("animate__animated animate__headShake")}} onMouseLeave={()=>setAnimation("")} className={animation} data-item='item'>
       <Card.Body>

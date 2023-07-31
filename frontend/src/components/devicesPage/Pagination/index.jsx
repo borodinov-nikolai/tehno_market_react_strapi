@@ -33,7 +33,7 @@ for (let number = 1; number <= pageCount; number++) {
   
       <Container>
 
-        {pageCount<1? '' : <Pagination className={styles.holder + ' animate__animated animate__bounceInUp'}>
+        {pageCount<1? '' : <Pagination className={styles.holder}>
           <Pagination.First />
           <Pagination.Prev/>
               {items}

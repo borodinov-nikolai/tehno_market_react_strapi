@@ -75,7 +75,7 @@ const Devices = () => {
     <Container >
       <div className= 'sort__menu d-flex pt-5 justify-content-between ' >
      
-        <div className='d-flex gap-2 animate__animated animate__bounceInLeft'>
+        <div className='d-flex gap-2'>
         <Button variant="secondary" onClick={()=>{dispatch(setBrandId(null)); setActive(0)}} className={0===active?'button border-0 activeBrand':'button border-0'} style={{backgroundColor: "rgb(235 235 235)", color: 'black'}}>Все</Button>
           {brands.map(({id, attributes})=>{
           return <Button key={id} variant="secondary" onClick={()=>{dispatch(setBrandId(id)); setActive(id)}} className={id===active?'button border-0 activeBrand':'button border-0'} style={{backgroundColor: "rgb(235 235 235)", color: 'black'}}>{attributes.name}</Button>
@@ -84,7 +84,7 @@ const Devices = () => {
        
         </div>
             <Search/>
-        <div className='animate__animated animate__bounceInRight'>
+        <div>
 
            <Sort/>
 

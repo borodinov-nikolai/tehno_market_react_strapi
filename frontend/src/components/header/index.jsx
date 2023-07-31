@@ -22,7 +22,7 @@ const Header = () => {
     <>
       <Navbar bg="light" data-bs-theme="light">
         <Container>
-          <NavLink to="/" className={"text-decoration-none animate__animated animate__fadeInDown"} >
+          <NavLink to="/" className={"text-decoration-none"} >
             <Navbar.Brand>
               <img
                 src={logo}
@@ -37,31 +37,31 @@ const Header = () => {
           <Nav className="me-auto">
             <Nav.Link
               href="#home "
-              className="ms-5 animate__animated animate__fadeInDown"
+              className="ms-5"
             >
               Главная
             </Nav.Link>
             <Nav.Link
               href="#features"
-              className="ms-5 animate__animated animate__fadeInDown"
+              className="ms-5"
             >
               Каталог
             </Nav.Link>
             <Nav.Link
               href="#home "
-              className="ms-5 animate__animated animate__fadeInDown"
+              className="ms-5"
             >
               Новости
             </Nav.Link>
             <Nav.Link
               href="#pricing"
-              className="ms-5 animate__animated animate__fadeInDown"
+              className="ms-5"
             >
               О нас
             </Nav.Link>
             <Nav.Link
               href="#pricing"
-              className="ms-5 animate__animated animate__fadeInDown"
+              className="ms-5"
             >
               Контакты
             </Nav.Link>
@@ -80,7 +80,6 @@ const Header = () => {
 
           {isAuth && (
             <Button
-            className="animate__animated animate__fadeInDown"
               variant="dark"
               onClick={() => {
                 localStorage.removeItem("token");
