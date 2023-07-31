@@ -8,7 +8,7 @@ import './style.scss';
 import {useSelector, useDispatch} from 'react-redux'
 import {setBrandId} from '../../redux/slices/filtersSlice'
 import Sort from '../../components/devicesPage/Sort';
-import { setPageCount } from '../../redux/slices/paginationSlice';
+import { setPageCount, setPage } from '../../redux/slices/paginationSlice';
 import Search from '../../components/devicesPage/Search';
 
 const Devices = () => {
@@ -60,7 +60,9 @@ const Devices = () => {
         }
        })
       .then(res=>{setDevices(res.data.data);
-      dispatch(setPageCount(res.data.meta.pagination.pageCount))
+      dispatch(setPageCount(res.data.meta.pagination.pageCount));
+      dispatch(setPage(res.data.meta.pagination.page));
+
       });
     }
     getDevices();
