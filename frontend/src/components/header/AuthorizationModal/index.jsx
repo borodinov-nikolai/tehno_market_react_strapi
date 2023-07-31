@@ -35,7 +35,7 @@ const AuthorizationModal = () => {
 
 
     <>
-      <Button  className='animate__animated animate__fadeInDown' style={{ fontSize: '16px' }} size='sm' variant={'outline-dark '}  onClick={handleShow}>
+      <Button style={{ fontSize: '16px' }} size='sm' variant={'outline-dark '}  onClick={handleShow}>
       <i className="bi bi-box-arrow-in-right"></i> Войти
       </Button>
 

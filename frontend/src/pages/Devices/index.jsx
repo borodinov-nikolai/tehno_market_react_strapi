@@ -41,7 +41,7 @@ const Devices = () => {
         params:{
            pagination: {
             page: page,
-            pageSize: 10
+            pageSize: 20
            },
            filters: {
                name: {
