@@ -1,6 +1,7 @@
 import React from 'react'
 import Pagination from 'react-bootstrap/Pagination';
 import styles from "./Pagination.module.scss"
+import Container from 'react-bootstrap/esm/Container';
 
 
 
@@ -18,13 +19,15 @@ for (let number = 1; number <= pageCount; number++) {
 
   return (
   
-      <Pagination className={styles.holder + ' animate__animated animate__bounceInUp'}>
-        <Pagination.First />
-        <Pagination.Prev/>
-            {items}
-            <Pagination.Next />
-        <Pagination.Last />
-      </Pagination>
+      <Container>
+        <Pagination className={styles.holder + ' animate__animated animate__bounceInUp'}>
+          <Pagination.First />
+          <Pagination.Prev/>
+              {items}
+              <Pagination.Next />
+          <Pagination.Last />
+        </Pagination>
+      </Container>
 
   )
 }

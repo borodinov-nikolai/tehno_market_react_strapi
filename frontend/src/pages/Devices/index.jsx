@@ -83,12 +83,13 @@ const Devices = () => {
           </Form.Select>
         </div>
       </div>
-      <Container className='d-flex pt-5 gap-4 flex-wrap'>
+      <Container className='d-flex px-0 pt-5 gap-4 flex-wrap' >
         {data.map(({id, attributes})=>{
         return <ProductCard key={id} name={attributes.name} price={attributes.price} img={attributes.img}/>
         })}
-      <PaginationBar/>
       </Container>
+      
+      <PaginationBar/>
     </Container>
       </>
   )
