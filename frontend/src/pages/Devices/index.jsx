@@ -5,7 +5,7 @@ import $api from '../../http';
 import Button from 'react-bootstrap/Button';
 import PaginationBar from '../../components/devicesPage/Pagination';
 import './style.scss';
-import {useSelector, useDispatch, batch} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import {setBrandId,  setFilters } from '../../redux/slices/filtersSlice'
 import Sort from '../../components/devicesPage/Sort';
 import { setPageCount, setPage, setPagination} from '../../redux/slices/paginationSlice';

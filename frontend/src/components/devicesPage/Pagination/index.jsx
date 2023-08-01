@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Pagination from 'react-bootstrap/Pagination';
 import styles from "./Pagination.module.scss"
 import Container from 'react-bootstrap/esm/Container';
