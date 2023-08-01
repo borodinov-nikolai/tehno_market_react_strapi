@@ -6,10 +6,15 @@ import Button from 'react-bootstrap/Button';
 import PaginationBar from '../../components/devicesPage/Pagination';
 import './style.scss';
 import {useSelector, useDispatch} from 'react-redux'
-import {setBrandId} from '../../redux/slices/filtersSlice'
+import {setBrandId,  setFilters } from '../../redux/slices/filtersSlice'
 import Sort from '../../components/devicesPage/Sort';
-import { setPageCount, setPage } from '../../redux/slices/paginationSlice';
+import { setPageCount, setPage, setPagination} from '../../redux/slices/paginationSlice';
 import Search from '../../components/devicesPage/Search';
+import {useNavigate} from 'react-router-dom';
+import qs from 'qs';
+
+
+
 
 const Devices = () => {
   const [devices, setDevices] = React.useState([]);
@@ -21,57 +26,94 @@ const Devices = () => {
   const brandId = useSelector((state)=> state.filters.brandId);
   const search = useSelector((state)=> state.filters.search);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
 
   
- React.useEffect(()=>{
-  const getBrands = async ()=> {
-    await $api.get('/brands')
+
+
+
+
+
+
+  React.useEffect(()=>{
+    const getBrands = async ()=> {
+      await $api.get('/brands')
     .then(res=> setBrands(res.data.data))
- };
+  };
 
  getBrands();
- },[]) 
+},[]) 
+
+
+
+
+
+
+
+React.useEffect(()=>{
+  if (window.location.search){
+    const {filters, pagination, sort} = qs.parse(window.location.search.substring(1))
+      dispatch(setFilters({...filters, sort}))
+      dispatch(setPagination(pagination))
+      console.log(pagination)
+
+    }
+},[])
+
+
+
+
+
+React.useEffect(()=>{
+  const getDevices = async()=>{
+    await $api.get('/devices',{
+      params:{
+        pagination: {
+         page: page,
+         pageSize: 10
+        },
+        filters: {
+          name: {
+            $containsi: search
+           },
+           brand: {
+             id: brandId
+            },
+            //  type: {
+              //   id: 1
+           //  }
+         },
+        sort: {
+         0: sort
+       }
+     }
+    })
+   .then(res=>{setDevices(res.data.data);
+   dispatch(setPageCount(res.data.meta.pagination.pageCount));
+  //  dispatch(setPage(res.data.meta.pagination.page));
+  
+  });
+  }
+  
+  getDevices();
+
+},[brandId, sort, page, search])
+
+
+
+
+
+
+
 
 
   React.useEffect( ()=>{
-  
-     const getDevices = async()=>{
-      await $api.get('/devices',{
-        params:{
-           pagination: {
-            page: page,
-            pageSize: 20
-           },
-           filters: {
-               name: {
-                $containsi: search
-               },
-               brand: {
-               id: brandId
-               },
-              //  type: {
-              //   id: 1
-              //  }
-           },
-           sort: {
-            0: sort
-          }
-        }
-       })
-      .then(res=>{setDevices(res.data.data);
-      dispatch(setPageCount(res.data.meta.pagination.pageCount));
-      dispatch(setPage(res.data.meta.pagination.page));
-
-      });
-    }
-    getDevices();
-
-    },[brandId, sort, page, search])
+ navigate(`?pagination[page]=${page}&filters[name][$containsi]=${search}&filters[brand][id]]=${brandId}&sort[0]=${sort}`);
+    //http://localhost:1337/api/devices?pagination[page]=1&pagination[pageSize]=20&filters[name][$containsi]=7&filters[brand][id]=1&sort[0]=price:desc
+  },[brandId, sort, page, search])
     
 
   
-    
   return (
     <>
     <Container >

@@ -14,12 +14,14 @@ const PaginationBar = () => {
   const dispatch = useDispatch();
 
 
-  React.useEffect(()=>{
-    if(pageCount<page) {
-      dispatch(setPage(1));
-    }
+  // React.useEffect(()=>{
+  //   console.log(pageCount)
+  //   if(pageCount<page) {
+  //     dispatch(setPage(1));
+  //   }
 
-  },[page,pageCount]);
+  // },[page]);
+  console.log(page)
 
 for (let number = 1; number <= pageCount; number++) {
   items.push(

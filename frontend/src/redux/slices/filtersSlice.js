@@ -27,9 +27,14 @@ export const filtersSlice = createSlice({
         setSort: (state, action)=>{
             state.sort = action.payload
         },
+        setFilters: (state, action)=>{
+           state.brandId = action.payload.brand.id
+           state.search = action.payload.name.$containsi
+           state.sort = action.payload.sort[0]
+        }
     }
 })
 
 
-export const {setTypeId, setBrandId, setSearch, setSort} = filtersSlice.actions
+export const {setTypeId, setBrandId, setSearch, setSort, setFilters} = filtersSlice.actions
 export default filtersSlice.reducer
