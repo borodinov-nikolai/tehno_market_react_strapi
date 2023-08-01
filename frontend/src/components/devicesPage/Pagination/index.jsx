@@ -40,11 +40,11 @@ for (let number = 1; number <= pageCount; number++) {
       <Container>
 
         {pageCount<1? '' : <Pagination className={styles.holder}>
-          <Pagination.First onClick={()=>dispatch(setPage(1))} />
-          <Pagination.Prev onClick={()=>dispatch(setPage(page>1?page-1:1))}/>
+          <Pagination.First className={styles.button} onClick={()=>dispatch(setPage(1))} />
+          <Pagination.Prev className={styles.button} onClick={()=>dispatch(setPage(page>1?page-1:1))}/>
               {items}
-              <Pagination.Next style={{boxShadow: "none !important"}} onClick={()=>dispatch(setPage(page<pageCount?page+1:pageCount))} />
-          <Pagination.Last onClick={()=>dispatch(setPage(pageCount))} />
+              <Pagination.Next className={styles.button} style={{boxShadow: "none !important"}} onClick={()=>dispatch(setPage(page<pageCount?page+1:pageCount))} />
+          <Pagination.Last className={styles.button} onClick={()=>dispatch(setPage(pageCount))} />
         </Pagination>}
         
       </Container>

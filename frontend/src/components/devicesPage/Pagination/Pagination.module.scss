@@ -1,10 +1,15 @@
 
 
 
-
-.holder{
-    margin: 0;
- padding: 70px 0 150px 0;
+.holder {
+  margin: 0;
+  padding: 70px 0 150px 0;
 }
 
+.button {
+  a:focus {
+    background: white;
+    box-shadow: none;
 
+  }
+}
