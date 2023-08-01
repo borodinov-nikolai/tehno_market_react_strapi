@@ -5,7 +5,7 @@ import $api from '../../http';
 import Button from 'react-bootstrap/Button';
 import PaginationBar from '../../components/devicesPage/Pagination';
 import './style.scss';
-import {useSelector, useDispatch} from 'react-redux'
+import {useSelector, useDispatch, batch} from 'react-redux'
 import {setBrandId,  setFilters } from '../../redux/slices/filtersSlice'
 import Sort from '../../components/devicesPage/Sort';
 import { setPageCount, setPage, setPagination} from '../../redux/slices/paginationSlice';
@@ -19,10 +19,9 @@ import qs from 'qs';
 const Devices = () => {
   const [devices, setDevices] = React.useState([]);
   const [brands, setBrands] = React.useState([]);
-  const [searchData, setSearchData] = React.useState('');
-  const [active, setActive] = React.useState(0)
   const sort = useSelector((state)=> state.filters.sort);
   const page = useSelector((state)=> state.pagination.page);
+  const pageCount = useSelector((state)=> state.pagination.pageCount);
   const brandId = useSelector((state)=> state.filters.brandId);
   const search = useSelector((state)=> state.filters.search);
   const dispatch = useDispatch();
@@ -55,8 +54,7 @@ React.useEffect(()=>{
     const {filters, pagination, sort} = qs.parse(window.location.search.substring(1))
       dispatch(setFilters({...filters, sort}))
       dispatch(setPagination(pagination))
-      console.log(pagination)
-
+      console.log(brandId)
     }
 },[])
 
@@ -70,7 +68,7 @@ React.useEffect(()=>{
       params:{
         pagination: {
          page: page,
-         pageSize: 10
+         pageSize: 20
         },
         filters: {
           name: {
@@ -89,15 +87,41 @@ React.useEffect(()=>{
      }
     })
    .then(res=>{setDevices(res.data.data);
-   dispatch(setPageCount(res.data.meta.pagination.pageCount));
-  //  dispatch(setPage(res.data.meta.pagination.page));
-  
+    (dispatch(setPageCount(res.data.meta.pagination.pageCount)));
+
+    
+   
+
   });
   }
   
   getDevices();
 
-},[brandId, sort, page, search])
+
+
+ let brand = !brandId ? null : {id: brandId}
+
+  const queryString = qs.stringify({
+    pagination:{
+      page: page,
+      pageCount: pageCount
+    },
+    filters: {
+      name: {
+        $containsi: search
+      },
+     brand: brand
+    },
+    sort: {
+       0:sort
+    }
+
+  })
+
+  navigate(`?${queryString}`);
+
+
+},[brandId, sort, page, search, pageCount])
 
 
 
@@ -107,12 +131,8 @@ React.useEffect(()=>{
 
 
 
-  React.useEffect( ()=>{
- navigate(`?pagination[page]=${page}&filters[name][$containsi]=${search}&filters[brand][id]]=${brandId}&sort[0]=${sort}`);
-    //http://localhost:1337/api/devices?pagination[page]=1&pagination[pageSize]=20&filters[name][$containsi]=7&filters[brand][id]=1&sort[0]=price:desc
-  },[brandId, sort, page, search])
-    
 
+ 
   
   return (
     <>
@@ -120,9 +140,9 @@ React.useEffect(()=>{
       <div className= 'sort__menu d-flex pt-5 justify-content-between ' >
      
         <div className='d-flex gap-2'>
-        <Button variant="secondary" onClick={()=>{dispatch(setBrandId(null)); setActive(0)}} className={0===active?'button border-0 activeBrand':'button border-0'} style={{backgroundColor: "rgb(235 235 235)", color: 'black'}}>Все</Button>
+        <Button variant="secondary" onClick={()=>{dispatch(setBrandId(null)); dispatch(setPage(1)) }} className={false===Boolean(brandId)?'button border-0 activeBrand':'button border-0'} style={{backgroundColor: "rgb(235 235 235)", color: 'black'}}>Все</Button>
           {brands.map(({id, attributes})=>{
-          return <Button key={id} variant="secondary" onClick={()=>{dispatch(setBrandId(id)); setActive(id)}} className={id===active?'button border-0 activeBrand':'button border-0'} style={{backgroundColor: "rgb(235 235 235)", color: 'black'}}>{attributes.name}</Button>
+          return <Button key={id} variant="secondary" onClick={()=>{  dispatch(setBrandId(id)); dispatch(setPage(1))}} className={id===Number(brandId)?'button border-0 activeBrand':'button border-0'} style={{backgroundColor: "rgb(235 235 235)", color: 'black'}}>{attributes.name}</Button>
           })
           }
        
