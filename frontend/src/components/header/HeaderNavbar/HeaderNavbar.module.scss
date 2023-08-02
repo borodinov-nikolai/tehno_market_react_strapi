@@ -1,0 +1,31 @@
+
+
+
+
+.link {
+    text-decoration: none;
+    color: white;
+     &:hover {
+        color: rgb(232, 232, 232);
+     }
+   
+}
+
+.menuList {
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+
+   
+   
+}

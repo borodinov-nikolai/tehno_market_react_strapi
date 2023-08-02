@@ -3,7 +3,7 @@ import instagramm from '../../assets/img/Instagramm.png'
 import twitter from '../../assets/img/pngegg (1).png'
 import facebook from '../../assets/img/pngegg (2).png'
 import Container from 'react-bootstrap/esm/Container'
-
+import './style.scss'
 
 
 function Footer() {
