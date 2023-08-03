@@ -3,7 +3,7 @@ import {createSlice} from '@reduxjs/toolkit'
 
 
 const initialState = {
-    typeId: null,
+    typeId: 1,
     brandId: null,
     search: '',
     sort: 'price:asc'
@@ -29,6 +29,7 @@ export const filtersSlice = createSlice({
         },
         setFilters: (state, action)=>{
            state.brandId = action.payload.brand.id
+           state.typeId = action.payload.type.id
            state.search = action.payload.name.$containsi
            state.sort = action.payload.sort[0]
         }

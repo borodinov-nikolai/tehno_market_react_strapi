@@ -13,7 +13,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsAuth } from "../../redux/slices/userSlice";
-import HeaderMenu from "./HeaderMenu";
+
 
 const Header = () => {
   const isAuth = useSelector((state) => state.user.isAuth);

@@ -2,14 +2,7 @@
 
 
 
-.link {
-    text-decoration: none;
-    color: white;
-     &:hover {
-        color: rgb(232, 232, 232);
-     }
-   
-}
+
 
 .menuList {
     padding: 0 20px;
@@ -19,6 +12,8 @@
 
 
 .menuItem {
+    cursor: pointer;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;

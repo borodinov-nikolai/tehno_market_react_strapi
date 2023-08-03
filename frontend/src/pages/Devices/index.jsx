@@ -22,13 +22,46 @@ const Devices = () => {
   const sort = useSelector((state)=> state.filters.sort);
   const page = useSelector((state)=> state.pagination.page);
   const pageCount = useSelector((state)=> state.pagination.pageCount);
-  const brandId = useSelector((state)=> state.filters.brandId);
-  const search = useSelector((state)=> state.filters.search);
+  const {brandId, typeId, search} = useSelector((state)=> state.filters);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   
 
+
+
+  const getDevices = async()=>{
+    await $api.get('/devices',{
+      params:{
+        pagination: {
+         page: page,
+         pageSize: 20
+        },
+        filters: {
+          name: {
+            $containsi: search
+           },
+           brand: {
+             id: brandId
+            },
+             type: {
+                id: typeId
+            }
+         },
+        sort: {
+         0: sort
+       }
+     }
+    })
+   .then(res=>{setDevices(res.data.data);
+    (dispatch(setPageCount(res.data.meta.pagination.pageCount)));
+
+    
+   
+
+  });
+  }
+  
 
 
 
@@ -46,6 +79,9 @@ const Devices = () => {
 
 
 
+   
+
+
 
 
 
@@ -54,52 +90,23 @@ React.useEffect(()=>{
     const {filters, pagination, sort} = qs.parse(window.location.search.substring(1))
       dispatch(setFilters({...filters, sort}))
       dispatch(setPagination(pagination))
-      console.log(brandId)
     }
 },[])
 
 
 
-
-
 React.useEffect(()=>{
-  const getDevices = async()=>{
-    await $api.get('/devices',{
-      params:{
-        pagination: {
-         page: page,
-         pageSize: 20
-        },
-        filters: {
-          name: {
-            $containsi: search
-           },
-           brand: {
-             id: brandId
-            },
-            //  type: {
-              //   id: 1
-           //  }
-         },
-        sort: {
-         0: sort
-       }
-     }
-    })
-   .then(res=>{setDevices(res.data.data);
-    (dispatch(setPageCount(res.data.meta.pagination.pageCount)));
-
-    
-   
-
-  });
-  }
   
-  getDevices();
+
+
+getDevices()  
 
 
 
- let brand = !brandId ? null : {id: brandId}
+
+
+
+ let brand = !brandId ? null : {id: brandId};
 
   const queryString = qs.stringify({
     pagination:{
@@ -110,7 +117,10 @@ React.useEffect(()=>{
       name: {
         $containsi: search
       },
-     brand: brand
+     brand: brand,
+     type: {
+      id: typeId
+     }
     },
     sort: {
        0:sort
@@ -121,7 +131,7 @@ React.useEffect(()=>{
   navigate(`?${queryString}`);
 
 
-},[brandId, sort, page, search, pageCount])
+},[brandId, typeId, sort, page, search, pageCount])
 
 
 
