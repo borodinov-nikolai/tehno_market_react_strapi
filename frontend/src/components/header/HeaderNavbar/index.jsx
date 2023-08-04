@@ -3,7 +3,7 @@ import Container from "react-bootstrap/esm/Container";
 import { NavLink } from "react-router-dom";
 import styles from './HeaderNavbar.module.scss'
 import { useDispatch } from "react-redux";
-import {setTypeId} from '../../../redux/slices/filtersSlice'
+import {setTypeId, setBrandId} from '../../../redux/slices/filtersSlice'
 import $api from '../../../http/index'
 
 
@@ -26,7 +26,6 @@ function HeaderNavbar() {
 
 },[]) 
 
-console.log(types)
 
   return (
     <div className="bg-dark">
@@ -40,7 +39,7 @@ console.log(types)
         <ul className={styles.menuList + ' bg-dark'}>
 
           {types.map(({attributes, id})=> {
-       return  <li key={id}  onClick={()=>dispatch(setTypeId(id))} className={styles.menuItem}> {attributes.name} </li>
+       return  <li key={id}  onClick={()=>{dispatch(setTypeId(id)); dispatch(setBrandId(null))}} className={styles.menuItem}> {attributes.name} </li>
           }) }
 
 

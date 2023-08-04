@@ -19,6 +19,7 @@ import qs from 'qs';
 const Devices = () => {
   const [devices, setDevices] = React.useState([]);
   const [brands, setBrands] = React.useState([]);
+  const isSearch = React.useRef(false);
   const sort = useSelector((state)=> state.filters.sort);
   const page = useSelector((state)=> state.pagination.page);
   const pageCount = useSelector((state)=> state.pagination.pageCount);
@@ -28,7 +29,7 @@ const Devices = () => {
 
   
 
-
+//Функция для отправки запросов на сервер
 
   const getDevices = async()=>{
     await $api.get('/devices',{
@@ -50,63 +51,50 @@ const Devices = () => {
          },
         sort: {
          0: sort
-       }
+       },
+      
      }
     })
    .then(res=>{setDevices(res.data.data);
-    (dispatch(setPageCount(res.data.meta.pagination.pageCount)));
+    dispatch(setPageCount(res.data.meta.pagination.pageCount));
+  })
 
-    
-   
+}
+  
 
-  });
-  }
   
 
 
 
 
 
-  React.useEffect(()=>{
-    const getBrands = async ()=> {
-      await $api.get('/brands')
-    .then(res=> setBrands(res.data.data))
-  };
-
- getBrands();
-},[]) 
-
-
-
-
-   
-
-
-
-
+//Если есть строка поиска берем из нее данные фильтров
 
 React.useEffect(()=>{
   if (window.location.search){
-    const {filters, pagination, sort} = qs.parse(window.location.search.substring(1))
-      dispatch(setFilters({...filters, sort}))
-      dispatch(setPagination(pagination))
+    const {filters, pagination, sort} = qs.parse(window.location.search.substring(1));
+    dispatch(setFilters({...filters, sort}));
+    dispatch(setPagination(pagination));
+    isSearch.current = true
     }
+
 },[])
 
 
 
+   // Загружаем массив девайсов и формируем строку запросов из данных фильтров
+
+
 React.useEffect(()=>{
-  
+
+if(!isSearch.current) {
+  getDevices()  
+}
+
+isSearch.current = false
 
 
-getDevices()  
-
-
-
-
-
-
- let brand = !brandId ? null : {id: brandId};
+let brand = !brandId ? null : {id: brandId};
 
   const queryString = qs.stringify({
     pagination:{
@@ -135,15 +123,31 @@ getDevices()
 
 
 
+//Получаем список брендов выбронного типа
+
+React.useEffect(()=>{
+  const getBrands = async ()=> {
+    await $api.get('/types', {
+      params: {
+        filters: {
+          id: typeId,
+        },
+       populate: '*'
+      }
+    })
+  .then(res=> setBrands(res.data.data[0].attributes.brands.data.map((item)=>item)))
+};
 
 
 
+getBrands();
+},[typeId]) 
 
 
 
 
  
-  
+
   return (
     <>
     <Container >
@@ -151,7 +155,8 @@ getDevices()
      
         <div className='d-flex gap-2'>
         <Button variant="secondary" onClick={()=>{dispatch(setBrandId(null)); dispatch(setPage(1)) }} className={false===Boolean(brandId)?'button border-0 activeBrand':'button border-0'} style={{backgroundColor: "rgb(235 235 235)", color: 'black'}}>Все</Button>
-          {brands.map(({id, attributes})=>{
+          {
+          brands.map(({id, attributes})=>{
           return <Button key={id} variant="secondary" onClick={()=>{  dispatch(setBrandId(id)); dispatch(setPage(1))}} className={id===Number(brandId)?'button border-0 activeBrand':'button border-0'} style={{backgroundColor: "rgb(235 235 235)", color: 'black'}}>{attributes.name}</Button>
           })
           }
