@@ -39,8 +39,8 @@ function HeaderNavbar() {
         <ul className={styles.menuList + ' bg-dark'}>
 
           {types.map(({attributes, id})=> {
-       return  <Link style={{textDecoration: 'none'}} to={`http://localhost:3000/?pagination%5Bpage%5D=1&pagination%5BpageCount%5D=2&filters%5Bname%5D%5B%24containsi%5D=&filters%5Bbrand%5D=&filters%5Btype%5D%5Bid%5D=${id}&sort%5B0%5D=price%3Aasc`}>
-         <li key={id}  onClick={()=>{dispatch(setTypeId(id)); dispatch(setBrandId(null))}} className={styles.menuItem}> {attributes.name} </li>
+       return  <Link key={id} style={{textDecoration: 'none'}} to={`http://localhost:3000/?pagination%5Bpage%5D=1&pagination%5BpageCount%5D=2&filters%5Bname%5D%5B%24containsi%5D=&filters%5Bbrand%5D=&filters%5Btype%5D%5Bid%5D=${id}&sort%5B0%5D=price%3Aasc`}>
+         <li  onClick={()=>{dispatch(setTypeId(id)); dispatch(setBrandId(null))}} className={styles.menuItem}> {attributes.name} </li>
        </Link>
           }) }
 

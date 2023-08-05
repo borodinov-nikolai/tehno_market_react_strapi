@@ -2,9 +2,27 @@ import React from 'react'
 import Container from 'react-bootstrap/esm/Container'
 import styles from './Cart.module.scss'
 import Button from 'react-bootstrap/Button'
+import {useSelector } from 'react-redux'
+
+
+
 
 const Cart = () => {
-   const {title, cartWrapper, itemHolder, cartItem, counter, total, price, remove, counterHolder, sum} = styles
+   const {title, cartWrapper, itemHolder, cartItem, counter, total, cartTitle, remove, counterHolder, sum, imgHolder} = styles
+ const {itemList, totalPrice} = useSelector((state)=> state.cart)
+
+     
+       
+       const totalCount = itemList.length > 0 ? itemList.reduce((sum, item)=> sum + Number(item.count), 0) : 0;
+     
+
+
+React.useEffect(()=>{
+     console.log(itemList);
+     console.log(totalPrice)
+
+}, itemList)
+  
 
   return (
    <Container>
@@ -13,28 +31,26 @@ const Cart = () => {
 
        <div className={cartWrapper}>
            <div className={itemHolder} >
-            <div className={cartItem}> 
-                 <img src="http://localhost:1337/uploads/Poco_C_40_987263d841.jpg" alt="" />
-                 <h2>Poco C-40</h2>
+
+            {itemList.map(({id, name, img, price})=> {
+              return ( <div key={id} className={cartItem}> 
+                 <div className={imgHolder}>
+                    <img src={img} alt="" />
+                    </div>
+                 <div className={cartTitle} >{name}</div>
                  <p>..............................................................................................................................
                  </p>
                  <div className={counterHolder}><i class="bi bi-dash-circle"></i> <div className={counter} > 1</div> <i class="bi bi-plus-circle"></i></div>
-                 <div className={price} > 14000 p</div>
+                 <div className={price} > {price} p</div>
                  <div className={remove} > <i class="bi bi-x-lg"></i></div>
-            </div>
-            <div className={cartItem}> 
-                 <img src="http://localhost:1337/uploads/Poco_C_40_987263d841.jpg" alt="" />
-                 <h2>Poco C-40</h2>
-                 <p>..............................................................................................................................
-                 </p>
-                 <div className={counterHolder}><i class="bi bi-dash-circle"></i> <div className={counter} > 1</div> <i class="bi bi-plus-circle"></i></div>
-                 <div className={price} > 14000 p</div>
-                 <div className={remove} > <i class="bi bi-x-lg"></i></div>
-            </div>
+            </div>)
+            })}   
+          
+          
            </div>
 
                   <div className={total}>
-                    <div className={sum} > 2 товара на сумму: 28000 р </div>
+                    <div className={sum} > {totalCount} товаров на сумму: {totalPrice} р </div>
                      <Button variant ='dark' > Оформить заказ </Button>
                   </div>
 

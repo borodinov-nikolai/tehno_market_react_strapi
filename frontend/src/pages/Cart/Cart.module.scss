@@ -27,17 +27,28 @@
     padding: 0 20px;
  
 
-    img {
-        
-        height: 100px;
+   
+
+    .imgHolder {
+           
+          width: 100px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+        img {
+            height: 100px;
+        }
     }
 
-    h2 {
+
+    .cartTitle {
+          text-align: start;
+         font-size: 20px;;
        width: 200px;
     }
     
     p{  max-width: 800px;
-        min-width: 544px;
         overflow: hidden;
     }
     
@@ -78,7 +89,7 @@
 }
 
 .total {
-    margin-top: 40px;
+    margin: 40px 0;
     padding: 0 80px;
     display: flex;
     justify-content: space-between;
