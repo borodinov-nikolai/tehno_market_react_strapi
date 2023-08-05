@@ -46,6 +46,9 @@
     },
     "rating": {
       "type": "integer"
+    },
+    "description": {
+      "type": "richtext"
     }
   }
 }
