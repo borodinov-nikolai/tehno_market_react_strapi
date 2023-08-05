@@ -31,34 +31,60 @@ const Devices = () => {
 
 //Функция для отправки запросов на сервер
 
-  const getDevices = async()=>{
-    await $api.get('/devices',{
-      params:{
-        pagination: {
-         page: page,
-         pageSize: 20
-        },
-        filters: {
-          name: {
-            $containsi: search
-           },
-           brand: {
-             id: brandId
-            },
-             type: {
-                id: typeId
-            }
-         },
-        sort: {
-         0: sort
-       },
-      
-     }
-    })
-   .then(res=>{setDevices(res.data.data);
-    dispatch(setPageCount(res.data.meta.pagination.pageCount));
-  })
 
+
+
+
+async function getCart(){
+     await $api.post('/carts',{})
+     .then(res=>console.log(res.data.data))
+}
+
+
+getCart()
+
+
+
+
+
+
+
+
+
+
+  const getDevices = async()=>{
+    try{
+      await $api.get('/devices',{
+        params:{
+          pagination: {
+           page: page,
+           pageSize: 20
+          },
+          filters: {
+            name: {
+              $containsi: search
+             },
+             brand: {
+               id: brandId
+              },
+               type: {
+                  id: typeId
+              }
+           },
+          sort: {
+           0: sort
+         },
+        
+       }
+      })
+     .then(res=>{setDevices(res.data.data);
+      dispatch(setPageCount(res.data.meta.pagination.pageCount));
+    })
+  
+    } catch(error) {
+      console.error('Ошибка', error.message)
+    }
+   
 }
   
 
@@ -88,7 +114,10 @@ React.useEffect(()=>{
 React.useEffect(()=>{
 
 if(!isSearch.current) {
-  getDevices()  
+  
+     getDevices()  
+
+
 }
 
 isSearch.current = false

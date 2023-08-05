@@ -21,13 +21,18 @@ const AuthorizationModal = () => {
 
 
   const login = async (email, password) => {
-       await axios.post('http://localhost:1337/api/auth/local', {
-         identifier: email,
-         password: password
-       })
-       .then((res) => {localStorage.setItem('token', res.data.jwt);
-          dispatch(setIsAuth(true))
+    try {
+      await axios.post('http://localhost:1337/api/auth/local', {
+        identifier: email,
+        password: password
       })
+      .then((res) => {localStorage.setItem('token', res.data.jwt);
+         dispatch(setIsAuth(true))
+     })
+    } catch(error) {
+      console.error('ошибка', error.message)
+    }
+      
 }   
        
 
