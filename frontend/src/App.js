@@ -9,6 +9,7 @@ import Container from 'react-bootstrap/esm/Container';
 import {useSelector, useDispatch} from 'react-redux';
 import { setIsAuth } from './redux/slices/userSlice';
 import Devices from './pages/Devices'
+import Cart from './pages/Cart'
 
 
 
@@ -42,6 +43,7 @@ function App() {
        <Container  className='min-vh-100'>
       <Routes>
       <Route path='/' element={<Devices/>}/>
+      <Route path='/cart' element={<Cart/>}/>
       </Routes>
        </Container>
       <Footer/> 

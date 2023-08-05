@@ -1,11 +1,8 @@
 import React from "react";
-import Badge from "react-bootstrap/Badge";
-import { NavLink } from "react-router-dom";
-import HeaderNavbar from "./HeaderNavbar";
+import {Link } from "react-router-dom";
+import HeaderNavbar from "../header/HeaderNavbar";
 import Button from "react-bootstrap/Button";
 import logo from "../../assets/img/pngegg.png";
-import call from "../../assets/img/call.svg";
-import cart from "../../assets/img/cart.png";
 import AuthorizationModal from "./AuthorizationModal";
 import RegistrationModal from "./RegistrationModal/index.jsx";
 import Container from "react-bootstrap/Container";
@@ -13,6 +10,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsAuth } from "../../redux/slices/userSlice";
+import styles from './Header.module.scss'
 
 
 const Header = () => {
@@ -23,7 +21,7 @@ const Header = () => {
     <>
       <Navbar bg="light" data-bs-theme="light">
         <Container>
-          <NavLink to="/" className={"text-decoration-none"} >
+          <Link to="/" className={"text-decoration-none"} >
             <Navbar.Brand>
               <img
                 src={logo}
@@ -34,7 +32,7 @@ const Header = () => {
               />{" "}
               Техно маркет
             </Navbar.Brand>
-          </NavLink>
+          </Link>
           <Nav className="me-auto">
             <Nav.Link
               href="#home "
@@ -67,15 +65,17 @@ const Header = () => {
               Контакты
             </Nav.Link>
           </Nav>
-          {/* 
-       <Badge
-            bg="outline-light"
-            className="text-success fs-5"
-          >
-            Тест
-            <br />
 
-          </Badge> */}
+
+
+
+          <Link to='/cart'>
+            <div className={styles.cart}>
+              <i className={styles.icon + " bi bi-cart3"}>
+                 {false && <div className={styles.counter}>0</div>}
+                 </i>
+               </div>
+          </Link>
 
           {!isAuth && <AuthorizationModal />}
 
@@ -93,10 +93,12 @@ const Header = () => {
             </Button>
           )}
 
-          {/* <NavLink to='http://localhost:1337/admin'>
+
+
+          {/* <Link to='http://localhost:1337/admin'>
 
           <Button variant='dark' className="fs-5">Админка</Button>
-        </NavLink> */}
+        </Link> */}
 
           {/* {!isAuth && <RegistrationModal />} */}
         </Container>

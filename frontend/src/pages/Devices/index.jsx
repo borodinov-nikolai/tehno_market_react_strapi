@@ -151,6 +151,7 @@ getBrands();
   return (
     <>
     <Container >
+
       <div className= 'sort__menu d-flex pt-5 justify-content-between ' >
      
         <div className='d-flex gap-2'>
