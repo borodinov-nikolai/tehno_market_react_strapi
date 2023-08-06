@@ -14,8 +14,16 @@ import styles from './Header.module.scss'
 
 
 const Header = () => {
+  
   const isAuth = useSelector((state) => state.user.isAuth);
+  const {itemList} = useSelector((state) => state.cart)
   const dispatch = useDispatch();
+  let counter = itemList.reduce((sum, item)=> sum + item.count, 0)
+
+
+
+
+
 
   return (
     <>
@@ -72,7 +80,7 @@ const Header = () => {
           <Link to='/cart'>
             <div className={styles.cart}>
               <i className={styles.icon + " bi bi-cart3"}>
-                 {false && <div className={styles.counter}>0</div>}
+                 {itemList.length > 0 && <div className={styles.counter}>{counter<100 ? counter: '99+'}</div>}
                  </i>
                </div>
           </Link>

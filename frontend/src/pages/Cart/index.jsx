@@ -2,27 +2,44 @@ import React from 'react'
 import Container from 'react-bootstrap/esm/Container'
 import styles from './Cart.module.scss'
 import Button from 'react-bootstrap/Button'
-import {useSelector } from 'react-redux'
+import {useSelector, useDispatch } from 'react-redux'
+import { addCartItem, minusCartItem, removeCartItem, setTotalPrice } from '../../redux/slices/cartSlice'
 
 
 
 
 const Cart = () => {
-   const {title, cartWrapper, itemHolder, cartItem, counter, total, cartTitle, remove, counterHolder, sum, imgHolder} = styles
- const {itemList, totalPrice} = useSelector((state)=> state.cart)
-
-     
+   const {title, cartWrapper, itemHolder, cartItem, counter, total, cartTitle, remove, counterHolder, sum, imgHolder, cartEmpty} = styles
+   const {itemList, totalPrice} = useSelector((state)=> state.cart)
+   const [totalCount, setTotalCount] = React.useState(0);
+     const dispatch = useDispatch();
        
-       const totalCount = itemList.length > 0 ? itemList.reduce((sum, item)=> sum + Number(item.count), 0) : 0;
+   
+
      
+     
+   
 
+   
+     React.useEffect(()=> {
 
-React.useEffect(()=>{
-     console.log(itemList);
-     console.log(totalPrice)
+      setTotalCount(itemList.length > 0 ? itemList.reduce((sum, item)=> sum + Number(item.count), 0) : 0);
+    }, [itemList])
 
-}, itemList)
   
+
+
+
+if(itemList.length < 1) {
+  return (
+
+     <h1 className={cartEmpty} >Корзина пуста</h1>
+
+  )
+}
+
+
+
 
   return (
    <Container>
@@ -32,7 +49,7 @@ React.useEffect(()=>{
        <div className={cartWrapper}>
            <div className={itemHolder} >
 
-            {itemList.map(({id, name, img, price})=> {
+            {itemList.map(({id, name, img, price}, index)=> {
               return ( <div key={id} className={cartItem}> 
                  <div className={imgHolder}>
                     <img src={img} alt="" />
@@ -40,9 +57,9 @@ React.useEffect(()=>{
                  <div className={cartTitle} >{name}</div>
                  <p>..............................................................................................................................
                  </p>
-                 <div className={counterHolder}><i class="bi bi-dash-circle"></i> <div className={counter} > 1</div> <i class="bi bi-plus-circle"></i></div>
-                 <div className={price} > {price} p</div>
-                 <div className={remove} > <i class="bi bi-x-lg"></i></div>
+                 <div className={counterHolder}><i onClick={()=> dispatch(minusCartItem(id))} className="bi bi-dash-circle"></i> <div className={counter} > {itemList.length>1 && itemList[index].count}</div> <i onClick={()=>dispatch(addCartItem({id}))} className="bi bi-plus-circle"></i></div>
+                 <div > {price} p</div>
+                 <div className={remove} onClick={()=>dispatch(removeCartItem(id))} > <i className="bi bi-x-lg"></i></div>
             </div>)
             })}   
           
