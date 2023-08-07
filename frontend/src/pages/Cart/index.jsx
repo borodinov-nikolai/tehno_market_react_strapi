@@ -57,7 +57,7 @@ if(itemList.length < 1) {
                  <div className={cartTitle} >{name}</div>
                  <p>..............................................................................................................................
                  </p>
-                 <div className={counterHolder}><i onClick={()=> dispatch(minusCartItem(id))} className="bi bi-dash-circle"></i> <div className={counter} > {itemList.length>1 && itemList[index].count}</div> <i onClick={()=>dispatch(addCartItem({id}))} className="bi bi-plus-circle"></i></div>
+                 <div className={counterHolder}><i onClick={()=> dispatch(minusCartItem(id))} className="bi bi-dash-circle"></i> <div className={counter} > {itemList.length > 0 && itemList[index].count}</div> <i onClick={()=>dispatch(addCartItem({id}))} className="bi bi-plus-circle"></i></div>
                  <div > {price} p</div>
                  <div className={remove} onClick={()=>dispatch(removeCartItem(id))} > <i className="bi bi-x-lg"></i></div>
             </div>)
