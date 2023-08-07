@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {useSelector, useDispatch} from 'react-redux';
-import { setIsAuth } from '../../../redux/slices/userSlice';
+import { setIsAuth, setUser } from '../../../redux/slices/userSlice';
 import $api from '../../../http';
 
 
@@ -18,7 +18,8 @@ const AuthorizationModal = () => {
   const [autorizationShow, setAuthorizationShow] = React.useState(true);
   const [registrationShow, setRegistrationShow] = React.useState(false);
   const [registrationSuccess, setRegistrationSuccess] = React.useState(false);
-  const isAuth = useSelector((state)=> state.user.isAuth)
+  const {isAuth, name, id} = useSelector((state)=> state.user)
+
   const dispatch = useDispatch();
 
   
@@ -57,6 +58,7 @@ const AuthorizationModal = () => {
       })
       .then((res) => {localStorage.setItem('token', res.data.jwt);
          dispatch(setIsAuth(true));
+         dispatch(setUser(res.data.user));
          handleClose();
      })
     } catch(error) {

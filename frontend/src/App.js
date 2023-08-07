@@ -7,32 +7,46 @@ import './styles/style.scss'
 import 'animate.css'
 import Container from 'react-bootstrap/esm/Container';
 import {useSelector, useDispatch} from 'react-redux';
-import { setIsAuth } from './redux/slices/userSlice';
+import { setIsAuth, setUser } from './redux/slices/userSlice';
 import Devices from './pages/Devices'
 import Cart from './pages/Cart'
 import { setItemList, setTotalPrice } from './redux/slices/cartSlice'
+import {checkAuth, loadCart, saveCart} from './utils/global'
+import $api from './http'
 
 
 
 function App() {
    const {itemList, totalPrice} = useSelector((state)=> state.cart);
+   const {isAuth, userId} = useSelector((state)=> state.user);
   const dispatch = useDispatch();
       
-
+ 
+ 
+ 
+  
   
   React.useEffect(()=> {
-     const itemList = JSON.parse(localStorage.getItem('itemList'))
-     dispatch(setItemList(itemList? itemList: []))
-     dispatch(setTotalPrice(localStorage.getItem('totalPrice')))
+    checkAuth($api, dispatch, setIsAuth, setUser);
+    loadCart(dispatch, setItemList, setTotalPrice);
+    const getCart = async()=>{
+ 
+
+     await $api.get(`users/me?populate[cart][populate][cart_items]=*`)
+      .then((res)=> console.log(res.data.cart))
+    }
+    
+   
+    getCart()
+
   }, [])
-
-
-
+  
+  
+  
   React.useEffect(()=> {
-
-    const itemListString = JSON.stringify(itemList);
-     localStorage.setItem('itemList', itemListString);
-     localStorage.setItem('totalPrice', totalPrice);
+    saveCart(itemList, totalPrice);
+    
+   
    }, [itemList, totalPrice])
 
 
@@ -40,19 +54,7 @@ function App() {
  
 
 
-     React.useEffect(()=>{
-      function checkAuth() {
-        if(localStorage.getItem('token')){
-          
-         return dispatch(setIsAuth(true))
-        } 
-          dispatch(setIsAuth(false))
-      }
-
-      checkAuth();
-
-     },[])
-    
+     
 
   return (
     <div className="App" >
