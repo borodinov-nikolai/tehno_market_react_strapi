@@ -2,48 +2,65 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import axios from 'axios';
 import {useSelector, useDispatch} from 'react-redux';
 import { setIsAuth } from '../../../redux/slices/userSlice';
-import { Link } from 'react-router-dom';
+import $api from '../../../http';
 
 
 
 
 const AuthorizationModal = () => {
     const [show, setShow] = React.useState(false);
-  const [login, setLogin] = React.useState("");
+  const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState('');
   const [message, setMessage] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [registration, setRegistration] = React.useState(false);
+  const [autorizationShow, setAuthorizationShow] = React.useState(true);
+  const [registrationShow, setRegistrationShow] = React.useState(false);
+  const [registrationSuccess, setRegistrationSuccess] = React.useState(false);
+  const isAuth = useSelector((state)=> state.user.isAuth)
   const dispatch = useDispatch();
 
   
+ 
+
+   // функция сброса введеных данных при переключении окна
+
+   const clearValues = ()=> {
+       setUsername('');
+       setEmail('');
+       setPassword('');
+       setMessage('');
+   }
+
+
+    // Скрытие показ модального окна
   const handleShow = () => setShow(true);
+
   const handleClose = () => {
     setShow(false);
-    setMessage('');
-    setRegistration(false)
+    setAuthorizationShow(true);
+    setRegistrationShow(false);
+    setRegistrationSuccess(false);
+    clearValues();
+
   }
 
 
+  // Функция авторизации
 
-
-
-
-  const logining = async (email, password) => {
+  const login = async (email, password) => {
     try {
-      await axios.post('http://localhost:1337/api/auth/local', {
-        identifier: email,
-        password: password
+      await $api.post('auth/local', {
+        identifier: username,
+        password
       })
       .then((res) => {localStorage.setItem('token', res.data.jwt);
          dispatch(setIsAuth(true));
          handleClose();
      })
     } catch(error) {
-      console.error('ошибка', error.response.status)
+      console.error('ошибка', error.response)
       if (error.response.status === 400) {
          setMessage('Неправильный логин или пароль')
       }
@@ -53,16 +70,52 @@ const AuthorizationModal = () => {
     }
       
 }   
+
+// Функция регистрации
+
+const registration = async (username, email, password)=>{
+  try {
+    await $api.post('auth/local/register', {
+      username,
+      email,
+      password
+    })
+    .then((res)=>{localStorage.setItem('token', res.data.jwt);
+    dispatch(setIsAuth(true));
+    setRegistrationShow(false);
+    setRegistrationSuccess(true);
+} )
+  } catch(error) {
+    console.error('Ошибка', error.response);
+    
+    if (error.response.status === 400 && error.response.data.error.message === 'password must be at least 6 characters') {
+     setMessage('Пароль должен содержать не менее 6 символов')
+  }
+    if (error.response.status === 400 && error.response.data.error.message === 'email must be a valid email') {
+      setMessage('Неправильный email')
+   }
+    if (error.response.status === 400 && error.response.data.error.message == 'Email or Username are already taken') {
+      setMessage('Пользователь с таким логином или email уже существует')
+   }
+   if(error.response.status === 429) {
+     setMessage('Слишком много попыток, повторите позднее')
+   }
+  }
+}
        
 
-      return (
+
+return (
            
     
 
     <>
-      <Button style={{ fontSize: '16px' }} size='sm' variant={'outline-dark '}  onClick={handleShow}>
+
+       {/* Отображение кнопки в Хедере */}
+
+      {!isAuth && <Button style={{ fontSize: '16px' }} size='sm' variant={'outline-dark '}  onClick={handleShow}>
       <i className="bi bi-box-arrow-in-right"></i> Войти
-      </Button>
+      </Button>}
 
       <Modal  size={'lg'} show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -71,17 +124,22 @@ const AuthorizationModal = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          { !registration?
+
+
+          {/* Отображается форма авторизации */}
+
+          { autorizationShow &&
             
             <Form >
             <h3 style={{ textAlign: 'center' }} >Авторизация</h3>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email</Form.Label>
+              <Form.Label>Email или логин</Form.Label>
               <Form.Control
-                type="email"
-                placeholder="Введите email"
-                onChange={event => setEmail(event.target.value)}
+                type="text"
+                value={username}
+                placeholder="Введите email или логин"
+                onChange={event => setUsername(event.target.value)}
               />
 
             </Form.Group>
@@ -90,6 +148,7 @@ const AuthorizationModal = () => {
               <Form.Label>Пароль</Form.Label>
               <Form.Control
                 type="password"
+                value={password}
                 placeholder="Введите пароль"
                 onChange={event => setPassword(event.target.value)}
               />
@@ -97,55 +156,78 @@ const AuthorizationModal = () => {
                 {message}
               </Form.Text>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-             <Form.Text> Нет аккаунта? <span onClick={()=>setRegistration(true)} style={{color: 'blue', textDecoration:'underline', cursor: 'pointer'}} >Зарегистрируйся</span>  </Form.Text>
+            <Form.Group className="mb-3">
+             <Form.Text> Нет аккаунта? <span onClick={()=>{setRegistrationShow(true); setAuthorizationShow(false); clearValues()}} style={{color: 'blue', textDecoration:'underline', cursor: 'pointer'}} >Регистрация</span>  </Form.Text>
             </Form.Group>
             <div className='d-flex justify-content-end'>
 
-              <Button onClick={() => logining(email, password)} className='mr-4 fs-5' variant="dark" >
+              <Button onClick={() => login(email, password)} className='mr-4 fs-5' variant="dark" >
                 Войти
               </Button>
             </div>
           </Form>
-           :
-           
-           <Form>
-           <h3 style={{ textAlign: "center" }}>Регистрация</h3>
-
-           <Form.Group className="mb-3" controlId="formBasicEmail">
-             <Form.Label>Логин</Form.Label>
-             <Form.Control
-               type="text"
-               placeholder="Введите логин"
-               onChange={(event) => setLogin(event.target.value)}
-             />
-           </Form.Group>
-           <Form.Group className="mb-3" controlId="formBasicEmail">
-             <Form.Label>Email</Form.Label>
-             <Form.Control
-               type="email"
-               placeholder="Введите email"
-               onChange={(event) => setEmail(event.target.value)}
-             />
-           </Form.Group>
-
-           <Form.Group className="mb-3" controlId="formBasicPassword">
-             <Form.Label>Пароль</Form.Label>
-             <Form.Control
-               type="password"
-               placeholder="Введите пароль"
-               onChange={(event) => setPassword(event.target.value)}
-             />
-             <Form.Text className="text-danger"></Form.Text>
-           </Form.Group>
-
-           <div className="d-flex justify-content-end">
-             <Button className="mr-4 fs-5" variant="dark">
-               Зарегистрироваться
-             </Button>
-           </div>
-         </Form>
         }
+           
+           {/* Отображается форма регистрации */}
+
+         { registrationShow &&
+          <Form>
+          <h3 style={{ textAlign: "center" }}>Регистрация</h3>
+
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Логин</Form.Label>
+            <Form.Control
+              type="text"
+              value={username}
+              placeholder="Введите логин"
+              onChange={(event) => setUsername(event.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              value={email}
+              placeholder="Введите email"
+              onChange={(event) => setEmail(event.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Пароль</Form.Label>
+            <Form.Control
+              type="password"
+              value={password}
+              placeholder="Введите пароль"
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <Form.Text className="text-danger">
+            {message}
+            </Form.Text>
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Text> Есть аккаунт? <span onClick={()=>{setRegistrationShow(false); setAuthorizationShow(true); clearValues()}} style={{color: 'blue', textDecoration:'underline', cursor: 'pointer'}} >Авторизация</span>  </Form.Text>
+          </Form.Group>
+
+          <div className="d-flex justify-content-end">
+            <Button onClick={()=> registration(username, email, password)} className="mr-4 fs-5" variant="dark">
+              Зарегистрироваться
+            </Button>
+          </div>
+        </Form>
+      
+}
+
+           {/* Отображается сообщение об успешной регистрации */}
+
+   {
+   registrationSuccess && 
+     <div>
+     <div style={{textAlign : 'center', padding: '80px 0'}} > Вы успешно зарегестрировались !</div>
+     <div className='d-flex justify-content-end' ><Button onClick={handleClose} variant='dark' >Выйти</Button></div>
+   </div> 
+
+   }
         </Modal.Body>
         <Modal.Footer>
 

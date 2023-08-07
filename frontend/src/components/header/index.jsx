@@ -1,16 +1,16 @@
 import React from "react";
 import {Link } from "react-router-dom";
-import HeaderNavbar from "../header/HeaderNavbar";
+import HeaderNavbar from "./HeaderMenu";
 import Button from "react-bootstrap/Button";
 import logo from "../../assets/img/pngegg.png";
 import AuthorizationModal from "./AuthorizationModal";
-import RegistrationModal from "./RegistrationModal/index.jsx";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsAuth } from "../../redux/slices/userSlice";
 import styles from './Header.module.scss'
+import HeaderMenu from "./HeaderMenu";
 
 
 const Header = () => {
@@ -18,7 +18,7 @@ const Header = () => {
   const isAuth = useSelector((state) => state.user.isAuth);
   const {itemList} = useSelector((state) => state.cart)
   const dispatch = useDispatch();
-  let counter = itemList.reduce((sum, item)=> sum + item.count, 0)
+  const counter = itemList.reduce((sum, item)=> sum + item.count, 0)
 
 
 
@@ -85,7 +85,7 @@ const Header = () => {
                </div>
           </Link>
 
-          {!isAuth && <AuthorizationModal />}
+          <AuthorizationModal />
 
           {isAuth && (
             <Button
@@ -111,7 +111,7 @@ const Header = () => {
           {/* {!isAuth && <RegistrationModal />} */}
         </Container>
       </Navbar>
-      <HeaderNavbar />
+      <HeaderMenu />
     </>
   );
 };

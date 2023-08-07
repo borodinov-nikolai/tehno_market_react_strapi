@@ -1,6 +1,6 @@
 import React from "react";
 import Container from "react-bootstrap/esm/Container";
-import styles from './HeaderNavbar.module.scss'
+import styles from './HeaderMenu.module.scss'
 import { useDispatch } from "react-redux";
 import {setTypeId, setBrandId} from '../../../redux/slices/filtersSlice'
 import $api from '../../../http/index'
@@ -8,9 +8,7 @@ import { Link } from "react-router-dom";
 
 
 
-function HeaderNavbar() {
-  const [visibilitySmart, setVisibilitySmart] = React.useState("none");
-  const [visibilityPad, setVisibilityPad] = React.useState("none");
+function HeaderMenu() {
   const [types, setTypes] = React.useState([]);
   const dispatch = useDispatch();
 
@@ -18,8 +16,13 @@ function HeaderNavbar() {
  
   React.useEffect(()=>{
     const getTypes = async ()=> {
-      await $api.get('/types')
-    .then(res=> setTypes(res.data.data))
+      try {
+
+        await $api.get('/types')
+      .then(res=> setTypes(res.data.data))
+      } catch(error) {
+        console.error('ошибка', error.response)
+      }
   };
  
  getTypes();
@@ -53,4 +56,4 @@ function HeaderNavbar() {
   );
 }
 
-export default HeaderNavbar;
+export default HeaderMenu;

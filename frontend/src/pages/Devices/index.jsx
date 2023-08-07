@@ -64,7 +64,7 @@ const getDevices = async()=>{
     })
   
     } catch(error) {
-      console.error('Ошибка', error.message)
+      console.error('Ошибка', error.response)
     }
    
 }
@@ -138,15 +138,20 @@ let brand = !brandId ? null : {id: brandId};
 
 React.useEffect(()=>{
   const getBrands = async ()=> {
-    await $api.get('/types', {
-      params: {
-        filters: {
-          id: typeId,
-        },
-       populate: '*'
-      }
-    })
-  .then(res=> setBrands(res.data.data[0].attributes.brands.data.map((item)=>item)))
+    try{
+
+      await $api.get('/types', {
+        params: {
+          filters: {
+            id: typeId,
+          },
+         populate: '*'
+        }
+      })
+    .then(res=> setBrands(res.data.data[0].attributes.brands.data.map((item)=>item)))
+    } catch(error) {
+      console.error('ошибка', error.response)
+    }
 };
 
 

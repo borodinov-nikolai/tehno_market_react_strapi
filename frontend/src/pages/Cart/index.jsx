@@ -11,9 +11,8 @@ import { addCartItem, minusCartItem, removeCartItem, setTotalPrice } from '../..
 const Cart = () => {
    const {title, cartWrapper, itemHolder, cartItem, counter, total, cartTitle, remove, counterHolder, sum, imgHolder, cartEmpty} = styles
    const {itemList, totalPrice} = useSelector((state)=> state.cart)
-   const [totalCount, setTotalCount] = React.useState(0);
      const dispatch = useDispatch();
-       
+  const totalCount = itemList.length > 0 ? itemList.reduce((sum, item)=> sum + Number(item.count), 0) : 0
    
 
      
@@ -21,12 +20,6 @@ const Cart = () => {
    
 
    
-     React.useEffect(()=> {
-
-      setTotalCount(itemList.length > 0 ? itemList.reduce((sum, item)=> sum + Number(item.count), 0) : 0);
-    }, [itemList])
-
-  
 
 
 

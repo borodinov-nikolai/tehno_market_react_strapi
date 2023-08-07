@@ -23,6 +23,9 @@
       "relation": "oneToMany",
       "target": "api::cart-item.cart-item",
       "mappedBy": "cart"
+    },
+    "cart_data": {
+      "type": "json"
     }
   }
 }
