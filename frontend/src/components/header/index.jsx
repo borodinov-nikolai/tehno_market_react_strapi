@@ -8,14 +8,14 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useSelector, useDispatch } from "react-redux";
-import { setIsAuth } from "../../redux/slices/userSlice";
+import { setCartId, setIsAuth } from "../../redux/slices/userSlice";
 import styles from './Header.module.scss'
 import HeaderMenu from "./HeaderMenu";
 
 
 const Header = () => {
   
-  const isAuth = useSelector((state) => state.user.isAuth);
+  const {isAuth, cartId} = useSelector((state) => state.user);
   const {itemList} = useSelector((state) => state.cart)
   const dispatch = useDispatch();
   const counter = itemList.reduce((sum, item)=> sum + item.count, 0)
@@ -80,7 +80,7 @@ const Header = () => {
           <Link to='/cart'>
             <div className={styles.cart}>
               <i className={styles.icon + " bi bi-cart3"}>
-                 {itemList.length > 0 && <div className={styles.counter}>{counter<100 ? counter: '99+'}</div>}
+                 {itemList.length > 0 && <div className={styles.counter}>{counter < 100 ? counter: '99+'}</div>}
                  </i>
                </div>
           </Link>
@@ -93,6 +93,7 @@ const Header = () => {
               onClick={() => {
                 localStorage.removeItem("token");
                 dispatch(setIsAuth(false));
+                dispatch(setCartId(null));
               }}
               style={{ fontSize: "16px" }}
               size="sm"

@@ -4,8 +4,7 @@
   "info": {
     "singularName": "cart",
     "pluralName": "carts",
-    "displayName": "Cart",
-    "description": ""
+    "displayName": "cart"
   },
   "options": {
     "draftAndPublish": true
@@ -18,11 +17,13 @@
       "target": "plugin::users-permissions.user",
       "inversedBy": "cart"
     },
-    "cart_items": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::cart-item.cart-item",
-      "mappedBy": "cart"
+    "itemList": {
+      "type": "json",
+      "required": false
+    },
+    "totalPrice": {
+      "required": false,
+      "type": "integer"
     }
   }
 }

@@ -84,9 +84,11 @@ const registration = async (username, email, password)=>{
     })
     .then((res)=>{localStorage.setItem('token', res.data.jwt);
     dispatch(setIsAuth(true));
+    dispatch(setUser(res.data.user));
     setRegistrationShow(false);
     setRegistrationSuccess(true);
 } )
+
   } catch(error) {
     console.error('Ошибка', error.response);
     
@@ -104,6 +106,9 @@ const registration = async (username, email, password)=>{
    }
   }
 }
+
+
+
        
 
 
