@@ -55,21 +55,46 @@ const global = {
 
 
 
-      saveCartLocal(itemList, totalPrice) {
-        console.log('сохранилось локально')
-        const itemListString = JSON.stringify(itemList);
-        localStorage.setItem('itemList', itemListString);
-        localStorage.setItem('totalPrice', totalPrice);
-   
+    async getCartFromServer(cartId, $api, dispatch, setItemList, setTotalPrice){
+      if (cartId) {
+            console.log('загружаем корзину с сервера')
+          try {
+           const response = await $api.get(`users/me?populate[cart][populate]=*`)
+           const {data} = response
+                
+               data.cart.itemList ? dispatch(setItemList(data.cart.itemList)) : dispatch(setItemList([]))
+               data.cart.totalPrice ? dispatch(setTotalPrice(data.cart.totalPrice)) : dispatch(setTotalPrice(0))
+            
+          } catch (error) {
+            console.error('ошибка', error.message)
+          }
         
-        
-      },
+      }
+    },
 
 
-      async saveCartOnServer(isAuth, itemList, cartId, $api, totalPrice){
+
+
+      loadCartLocal( dispatch, setItemList, setTotalPrice, cartId ) {
+        if (!cartId) {
+          console.log('загружаем корзину локально')
+        const itemList = JSON.parse(localStorage.getItem('itemList'))
+        dispatch(setItemList(itemList? itemList: []))
+        dispatch(setTotalPrice(localStorage.getItem('totalPrice')))
+    }
+
+    },
+
+
+
+
+
+      async saveCartOnServer(itemList, cartId, $api, totalPrice){
       
-          
-        if (isAuth && cartId) {
+          console.log(cartId)
+          console.log(itemList)
+
+        if (cartId) {
          console.log('сохранилось на сервер')
           try {
            await  $api.put(`carts/${cartId}`, {
@@ -96,36 +121,18 @@ const global = {
       },
 
 
+
+    saveCartLocal(itemList, totalPrice) {
       
-    async getCartFromServer(isAuth, cartId, $api, dispatch, setItemList, setTotalPrice ){
-      if (isAuth && cartId) {
-            console.log('загружаем корзину с сервера')
-          try {
-           const response = await $api.get(`users/me?populate[cart][populate]=*`)
-           const {data} = response
-                
-               data.cart.itemList ? dispatch(setItemList(data.cart.itemList)) : dispatch(setItemList([]))
-               data.cart.totalPrice ? dispatch(setTotalPrice(data.cart.totalPrice)) : dispatch(setTotalPrice(0))
-            
-       
-         
-          } catch (error) {
-            console.error('ошибка', error.message)
-          }
-        
-      }
-    },
+        console.log('сохранилось локально')
+        const itemListString = JSON.stringify(itemList);
+        localStorage.setItem('itemList', itemListString);
+        localStorage.setItem('totalPrice', totalPrice);
 
+      
+ 
+      },
 
-      loadCartLocal(dispatch, setItemList, setTotalPrice, itemList, cartId, isAuth ) {
-        if ( isAuth) {
-          console.log('загружаем корзину локально')
-        const itemList = JSON.parse(localStorage.getItem('itemList'))
-        dispatch(setItemList(itemList? itemList: []))
-        dispatch(setTotalPrice(localStorage.getItem('totalPrice')))
-    }
-
-    },
 
 
 
