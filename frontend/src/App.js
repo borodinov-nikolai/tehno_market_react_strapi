@@ -24,6 +24,7 @@ import $api from "./http";
 function App() {
   const { itemList, totalPrice } = useSelector((state) => state.cart);
   const { isAuth, userId, cartId } = useSelector((state) => state.user);
+  const [cartLoad, setCartLoad] = React.useState(false);
   const dispatch = useDispatch();
 
   
@@ -31,7 +32,7 @@ function App() {
   React.useEffect(() => {
 
     checkAuth($api, dispatch, setIsAuth, setUser);
-
+  
   }, []);
 
 
@@ -42,8 +43,7 @@ function App() {
     checkCart($api, isAuth, cartId, userId, dispatch, setCartId);
 
 
-
-    getCartFromServer(cartId, $api, dispatch, setItemList, setTotalPrice);
+    getCartFromServer(cartId, $api, dispatch, setItemList, setTotalPrice, setCartLoad);
 
 
       loadCartLocal(
@@ -57,12 +57,12 @@ function App() {
 
   React.useEffect(() => {
 
-    saveCartOnServer(itemList, cartId, $api, totalPrice);
+    saveCartOnServer(itemList, cartId, $api, totalPrice, cartLoad);
 
     saveCartLocal(itemList, totalPrice);
 
     
-  }, [itemList, cartId]);
+  }, [itemList, cartLoad]);
 
 
   return (

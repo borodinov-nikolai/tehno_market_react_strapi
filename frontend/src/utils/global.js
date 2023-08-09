@@ -55,15 +55,19 @@ const global = {
 
 
 
-    async getCartFromServer(cartId, $api, dispatch, setItemList, setTotalPrice){
+    async getCartFromServer(cartId, $api, dispatch, setItemList, setTotalPrice, setCartLoad){
       if (cartId) {
             console.log('загружаем корзину с сервера')
           try {
-           const response = await $api.get(`users/me?populate[cart][populate]=*`)
-           const {data} = response
-                
-               data.cart.itemList ? dispatch(setItemList(data.cart.itemList)) : dispatch(setItemList([]))
-               data.cart.totalPrice ? dispatch(setTotalPrice(data.cart.totalPrice)) : dispatch(setTotalPrice(0))
+           await $api.get(`users/me?populate[cart][populate]=*`)
+           .then((response =>  {
+             const {data} = response
+                  
+                 data.cart.itemList ? dispatch(setItemList(data.cart.itemList)) : dispatch(setItemList([]));
+                 data.cart.totalPrice ? dispatch(setTotalPrice(data.cart.totalPrice)) : dispatch(setTotalPrice(0));
+                 setCartLoad(true);
+
+           }))
             
           } catch (error) {
             console.error('ошибка', error.message)
@@ -89,12 +93,13 @@ const global = {
 
 
 
-      async saveCartOnServer(itemList, cartId, $api, totalPrice){
+      async saveCartOnServer(itemList, cartId, $api, totalPrice, cartLoad){
       
           console.log(cartId)
+          console.log(cartLoad)
           console.log(itemList)
 
-        if (cartId) {
+        if (cartLoad) {
          console.log('сохранилось на сервер')
           try {
            await  $api.put(`carts/${cartId}`, {
