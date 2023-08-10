@@ -189,7 +189,7 @@ getBrands();
       </div>
       <Container className='d-flex px-0 pt-5 gap-4 flex-wrap' >
         {devices.map(({id, attributes})=>{
-        return <ProductCard key={id} id={id} name={attributes.name} price={attributes.price} img={attributes.img}/>
+        return <ProductCard key={id} id={id} name={attributes.name} price={attributes.price} imgURL={attributes.imgURL}/>
         })}
       </Container>
       

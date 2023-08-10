@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/esm/Container'
 import styles from './Cart.module.scss'
 import Button from 'react-bootstrap/Button'
 import {useSelector, useDispatch } from 'react-redux'
-import { addCartItem, minusCartItem, removeCartItem, setTotalPrice } from '../../redux/slices/cartSlice'
+import { addCartItem, minusCartItem, removeCartItem} from '../../redux/slices/cartSlice'
 
 
 
@@ -42,10 +42,10 @@ if(itemList.length < 1) {
        <div className={cartWrapper}>
            <div className={itemHolder} >
 
-            {itemList.map(({id, name, img, price}, index)=> {
+            {itemList.map(({id, name, imgURL, price}, index)=> {
               return ( <div key={id} className={cartItem}> 
                  <div className={imgHolder}>
-                    <img src={img} alt="" />
+                    <img src={imgURL} alt="" />
                     </div>
                  <div className={cartTitle} >{name}</div>
                  <p>..............................................................................................................................

@@ -29,7 +29,7 @@
         "images"
       ]
     },
-    "img": {
+    "imgURL": {
       "type": "string",
       "required": true,
       "unique": true
