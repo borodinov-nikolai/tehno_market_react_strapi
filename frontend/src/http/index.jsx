@@ -22,8 +22,9 @@ $api.interceptors.response.use(
     if (error.response.status === 401) {
       try {
         localStorage.removeItem("token");
+        window.location.reload();
       } catch (e) {
-        console.log("не авторизован");
+        console.error("непредвиденная ошибка", e.message);
       }
     }
     throw error;
