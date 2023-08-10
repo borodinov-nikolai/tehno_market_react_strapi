@@ -21,6 +21,10 @@ import {
 } from "./utils/global";
 import $api from "./http";
 
+
+
+
+
 function App() {
   const { itemList, totalPrice } = useSelector((state) => state.cart);
   const { isAuth, userId, cartId } = useSelector((state) => state.user);
@@ -30,6 +34,8 @@ function App() {
   
 
   React.useEffect(() => {
+ 
+     // Проверяем есть ли jwt токен в локальном хранилище, если есть, сохраняем данные о пользователе в redux 
 
     checkAuth($api, dispatch, setIsAuth, setUser);
   
@@ -40,13 +46,17 @@ function App() {
 
   React.useEffect(() => {
 
+    // Проверяем есть ли корзина у пользователя, если нет создаем. Сохраняем id корзины в redux
+
     checkCart($api, isAuth, cartId, userId, dispatch, setCartId);
 
-
+     // Загружаем содержимое корзины пользователя с сервера
+      
     getCartFromServer(cartId, $api, dispatch, setItemList, setTotalPrice, setCartLoad);
 
-
-      loadCartLocal(
+    // Если id корзины нет, загружаем корзину из локального хранилища
+    
+    loadCartLocal(
         dispatch, setItemList, setTotalPrice, cartId);
 
 
@@ -57,7 +67,11 @@ function App() {
 
   React.useEffect(() => {
 
+    // Сохраняем товары на сервер
+
     saveCartOnServer(itemList, cartId, $api, totalPrice, cartLoad);
+
+    // Сохраняем товары в локальное хранилище
 
     saveCartLocal(itemList, totalPrice);
 

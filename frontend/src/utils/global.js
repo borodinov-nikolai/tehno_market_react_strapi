@@ -12,13 +12,15 @@ const global = {
          await $api.get('users/me')
           .then((res)=>dispatch(setUser(res.data)))
 
-         return dispatch(setIsAuth(true))
+         return dispatch(setIsAuth(true));
         } 
 
-         dispatch(setIsAuth(false))
-
+        
       } catch(e) {
-        console.error(e.message)
+        console.error(e.message);
+        dispatch(setIsAuth(false));
+        localStorage.removeItem('token');
+        window.location.reload();
       }
        
       },

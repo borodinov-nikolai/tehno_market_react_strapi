@@ -32,7 +32,7 @@
     "imgURL": {
       "type": "string",
       "required": true,
-      "unique": true
+      "unique": false
     },
     "brand": {
       "type": "relation",
