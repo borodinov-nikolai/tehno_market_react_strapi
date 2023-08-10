@@ -5,7 +5,6 @@ const global = {
     
 
      async checkAuth($api, dispatch, setIsAuth, setUser) {
-       console.log('проверка авторизации')
       try {
          if(localStorage.getItem('token'))
          {
@@ -17,10 +16,7 @@ const global = {
 
         
       } catch(e) {
-        console.error(e.message);
-        dispatch(setIsAuth(false));
-        localStorage.removeItem('token');
-        window.location.reload();
+         console.error('ошибка', e.message)
       }
        
       },
@@ -29,7 +25,6 @@ const global = {
       
    async checkCart($api, isAuth, cartId, userId, dispatch, setCartId){
       if (isAuth) {
-         console.log('проверка корзины')
         try {
           await $api.get('users/me?populate[cart]=*')
             .then((res) => dispatch(setCartId(res.data.cart.id)))
@@ -59,7 +54,6 @@ const global = {
 
     async getCartFromServer(cartId, $api, dispatch, setItemList, setTotalPrice, setCartLoad){
       if (cartId) {
-            console.log('загружаем корзину с сервера')
           try {
            await $api.get(`users/me?populate[cart][populate]=*`)
            .then((response =>  {
@@ -83,7 +77,6 @@ const global = {
 
       loadCartLocal( dispatch, setItemList, setTotalPrice, cartId ) {
         if (!cartId) {
-          console.log('загружаем корзину локально')
         const itemList = JSON.parse(localStorage.getItem('itemList'))
         dispatch(setItemList(itemList? itemList: []))
         dispatch(setTotalPrice(localStorage.getItem('totalPrice')))
@@ -97,12 +90,8 @@ const global = {
 
       async saveCartOnServer(itemList, cartId, $api, totalPrice, cartLoad){
       
-          console.log(cartId)
-          console.log(cartLoad)
-          console.log(itemList)
 
         if (cartLoad) {
-         console.log('сохранилось на сервер')
           try {
            await  $api.put(`carts/${cartId}`, {
               data: {
@@ -131,7 +120,6 @@ const global = {
 
     saveCartLocal(itemList, totalPrice) {
       
-        console.log('сохранилось локально')
         const itemListString = JSON.stringify(itemList);
         localStorage.setItem('itemList', itemListString);
         localStorage.setItem('totalPrice', totalPrice);
