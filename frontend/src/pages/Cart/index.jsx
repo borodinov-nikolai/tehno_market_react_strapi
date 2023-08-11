@@ -4,6 +4,7 @@ import styles from './Cart.module.scss'
 import Button from 'react-bootstrap/Button'
 import {useSelector, useDispatch } from 'react-redux'
 import { addCartItem, minusCartItem, removeCartItem} from '../../redux/slices/cartSlice'
+import OrderModal from '../../components/cartPage/OrderModal'
 
 
 
@@ -61,7 +62,7 @@ if(itemList.length < 1) {
 
                   <div className={total}>
                     <div className={sum} > {totalCount} товаров на сумму: {totalPrice} р </div>
-                     <Button variant ='dark' > Оформить заказ </Button>
+                     <OrderModal/>
                   </div>
 
 

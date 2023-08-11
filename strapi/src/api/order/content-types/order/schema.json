@@ -4,7 +4,7 @@
   "info": {
     "singularName": "order",
     "pluralName": "orders",
-    "displayName": "Orders",
+    "displayName": "Order",
     "description": ""
   },
   "options": {
@@ -14,7 +14,8 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true
+      "required": true,
+      "unique": false
     },
     "adress": {
       "type": "string",
@@ -25,7 +26,10 @@
       "default": false,
       "required": true
     },
-    "number": {
+    "order": {
+      "type": "richtext"
+    },
+    "phoneNumber": {
       "type": "string",
       "required": true
     }
