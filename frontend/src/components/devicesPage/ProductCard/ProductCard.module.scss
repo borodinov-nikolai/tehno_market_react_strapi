@@ -2,12 +2,30 @@
 
 
 
-.button {
+.root {
+
+  
+    cursor: pointer;
+
+:global{
+
+
+    button {
     background-color: rgb(75 75 75) !important;
-    border: black;
+    border: rgb(0, 0, 0);
 
     &:hover {
         background-color: rgb(0, 0, 0) !important;
-        // text-decoration:
     }
+
+    
+     }
+
 }
+
+
+
+}
+
+
+

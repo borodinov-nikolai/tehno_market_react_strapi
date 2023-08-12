@@ -20,6 +20,7 @@ import {
   saveCartOnServer,
 } from "./utils/global";
 import $api from "./http";
+import Device from "./pages/Device";
 
 
 
@@ -85,6 +86,7 @@ function App() {
         <Header />
         <Container className="min-vh-100">
           <Routes>
+            <Route path="/devices/:name" element= {<Device/>} ></Route>
             <Route path="/" element={<Devices />} />
             <Route path="/cart" element={<Cart />} />
           </Routes>

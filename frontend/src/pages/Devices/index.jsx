@@ -36,6 +36,9 @@ const Devices = () => {
 
 const getDevices = async()=>{
     try{
+
+    
+
       await $api.get('/devices',{
         params:{
           pagination: {
@@ -130,7 +133,7 @@ let brand = !brandId ? null : {id: brandId};
   navigate(`?${queryString}`);
 
 
-},[brandId, typeId, sort, page, search, pageCount])
+},[brandId, typeId, sort, page, search, pageCount, window.location.pathname])
 
 
 
