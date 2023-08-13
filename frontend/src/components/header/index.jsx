@@ -41,51 +41,51 @@ const Header = () => {
               Техно маркет
             </Navbar.Brand>
           </Link>
-          <Nav className="me-auto">
-            <Nav.Link
-              href="#home "
-              className="ms-5"
-            >
-              Главная
-            </Nav.Link>
-            <Nav.Link
-              href="#features"
-              className="ms-5"
-            >
-              Каталог
-            </Nav.Link >
-            <Nav.Link
-              href="#home "
-              className="ms-5"
-            >
-              Новости
-            </Nav.Link>
-            <Nav.Link
-              href="#pricing"
-              className="ms-5"
-            >
-              О нас
-            </Nav.Link>
-            <Nav.Link
-              href="#pricing"
-              className="ms-5"
-            >
-              Контакты
-            </Nav.Link>
-          </Nav>
+         
+            <Nav className="me-auto d-flex w-100">
+             
+                <Nav.Link
+                  href="#home "
+                >
+                  Главная
+                </Nav.Link>
+                <Nav.Link
+                  href="#features"
+                >
+                  Каталог
+                </Nav.Link >
+                <Nav.Link
+                  href="#home "
+                >
+                  Новости
+                </Nav.Link>
+                <Nav.Link
+                  href="#pricing"
+                >
+                  О нас
+                </Nav.Link>
+                <Nav.Link
+                  href="#pricing"
+                >
+                  Контакты
+                </Nav.Link>
+            
+            </Nav>
+        
 
 
 
 
-          <Link to='/cart'>
-            <div className={styles.cart}>
-              <i className={styles.icon + " bi bi-cart3"}>
-                 {itemList.length > 0 && <div className={styles.counter}>{counter < 100 ? counter: '99+'}</div>}
-                 </i>
-               </div>
-          </Link>
-
-          <AuthorizationModal />
+          <div className="d-flex" >
+            <Link to='/cart'>
+              <div className={styles.cart}>
+                <i className={styles.icon + " bi bi-cart3"}>
+                   {itemList.length > 0 && <div className={styles.counter}>{counter < 100 ? counter: '99+'}</div>}
+                   </i>
+                 </div>
+            </Link>
+            <AuthorizationModal />
+          </div>
 
           {isAuth && (
             <Button

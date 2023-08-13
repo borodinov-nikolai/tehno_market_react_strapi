@@ -25,18 +25,20 @@ const ProductCard = ({id, name, price, imgURL }) => {
 
   const [animation, setAnimation] = React.useState('')
   return (
-   
-      <Card onClick={(event)=>toDescription(event)} style={{ width: '235px', }} onMouseEnter={()=>{setAnimation("animate__animated animate__headShake")}} onMouseLeave={()=>setAnimation("")} className={animation + ' ' + styles.root} data-item='item'>
-        <Card.Body>
-          <div className='d-flex justify-content-center' ><Card.Img variant="top" src={imgURL} style={{height:'180px', width: 'auto'}} /></div>
-          <Card.Title className='mt-2' >{name}</Card.Title>
-          <Card.Text >
-            Цена: {price}p
-          </Card.Text>
-          <div className='d-flex justify-content-end'><Button onClick={()=>dispatch(addCartItem({id, name, price, imgURL}))} className={styles.button} variant="primary">В корзину</Button></div>
-        </Card.Body>
-      </Card>
-   
+   <div className={"col-xl-3 col-lg-4 col-sm-6 col-xs-12 " + styles.root} >
+     
+        <Card onClick={(event)=>toDescription(event)}  onMouseEnter={()=>{setAnimation("animate__animated animate__headShake")}} onMouseLeave={()=>setAnimation("")}  className={animation} data-item= 'item'>
+          <Card.Body>
+            <div className='d-flex justify-content-center' ><Card.Img variant="top" src={imgURL} style={{height:'220px', width: 'auto'}} /></div>
+            <Card.Title className='mt-2' >{name}</Card.Title>
+            <Card.Text >
+              Цена: {price}p
+            </Card.Text>
+            <div className='d-flex justify-content-end'><Button onClick={()=>dispatch(addCartItem({id, name, price, imgURL}))} className={styles.button} variant="primary">В корзину</Button></div>
+          </Card.Body>
+        </Card>
+     
+   </div>
   )
 }
 

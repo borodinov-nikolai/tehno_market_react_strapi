@@ -43,7 +43,7 @@ const getDevices = async()=>{
         params:{
           pagination: {
            page: page,
-           pageSize: 20
+           pageSize: 12 
           },
           filters: {
             name: {
@@ -169,7 +169,7 @@ getBrands();
 
   return (
     <>
-    <Container >
+    
 
       <div className= 'sort__menu d-flex pt-5 justify-content-between ' >
      
@@ -190,14 +190,16 @@ getBrands();
         </div>
 
       </div>
-      <Container className='d-flex px-0 pt-5 gap-4 flex-wrap' >
+      
+        <div  className='row mt-5 gx-4 gy-4'>
+
         {devices.map(({id, attributes})=>{
         return <ProductCard key={id} id={id} name={attributes.name} price={attributes.price} imgURL={attributes.imgURL}/>
         })}
-      </Container>
+        </div>
       
       <PaginationBar/>
-    </Container>
+
       </>
   )
 }
