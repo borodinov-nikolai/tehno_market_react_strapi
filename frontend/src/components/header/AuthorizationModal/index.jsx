@@ -40,10 +40,13 @@ const AuthorizationModal = () => {
 
   const handleClose = () => {
     setShow(false);
-    setAuthorizationShow(true);
+    setTimeout(() => {
+         setAuthorizationShow(true);
     setRegistrationShow(false);
     setRegistrationSuccess(false);
     clearValues();
+    }, 500);
+ 
 
   }
 
