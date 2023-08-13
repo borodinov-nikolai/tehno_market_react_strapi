@@ -1,10 +1,8 @@
 import React from 'react';
 import ProductCard from '../../components/devicesPage/ProductCard';
-import Container from 'react-bootstrap/esm/Container';
 import $api from '../../http';
 import Button from 'react-bootstrap/Button';
 import PaginationBar from '../../components/devicesPage/Pagination';
-import './style.scss';
 import {useSelector, useDispatch} from 'react-redux'
 import {setBrandId,  setFilters } from '../../redux/slices/filtersSlice'
 import Sort from '../../components/devicesPage/Sort';
@@ -12,7 +10,7 @@ import { setPageCount, setPage, setPagination} from '../../redux/slices/paginati
 import Search from '../../components/devicesPage/Search';
 import {useNavigate} from 'react-router-dom';
 import qs from 'qs';
-
+import styles from "./Devices.module.scss";
 
 
 
@@ -171,9 +169,9 @@ getBrands();
     <>
     
 
-      <div className= 'sort__menu d-flex pt-5 justify-content-between ' >
+      <div className= {'sort__menu d-flex pt-5 justify-content-between '+ styles.root}>
      
-        <div className='d-flex gap-2'>
+        <div className='d-flex gap-2 flex-wrap'>
         <Button variant="secondary" onClick={()=>{dispatch(setBrandId(null)); dispatch(setPage(1)) }} className={false===Boolean(brandId)?'button border-0 activeBrand':'button border-0'} style={{backgroundColor: "rgb(235 235 235)", color: 'black'}}>Все</Button>
           {
           brands.map(({id, attributes})=>{
@@ -182,12 +180,17 @@ getBrands();
           }
        
         </div>
-            <Search/>
-        <div>
 
-           <Sort/>
+            <div className={styles.filters} >
+              <div className={styles.search}><Search/></div>
+              
+              
+                    
+              
+                         <div className={styles.sort} ><Sort/></div>
+            </div>
 
-        </div>
+     
 
       </div>
       

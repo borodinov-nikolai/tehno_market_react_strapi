@@ -13,3 +13,16 @@
 
   }
 }
+
+:global {
+  .active>.page-link {
+  background-color: rgb(87, 87, 87) !important;
+  border-color: rgb(50, 49, 49) !important;
+  color: white !important;
+}
+
+.page-link {
+  color: black !important;
+  box-shadow: none !important;
+}
+}

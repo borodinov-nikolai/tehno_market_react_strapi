@@ -27,7 +27,7 @@ const Header = () => {
 
   return (
     <>
-      <Navbar bg="light" data-bs-theme="light">
+      <Navbar className={styles.root} bg="light" data-bs-theme="light">
         <Container>
           <Link to="/" className={"text-decoration-none"} >
             <Navbar.Brand>
@@ -42,7 +42,7 @@ const Header = () => {
             </Navbar.Brand>
           </Link>
          
-            <Nav className="me-auto d-flex w-100">
+            <Nav className={"me-auto d-flex w-100 " + styles.navigation}>
              
                 <Nav.Link
                   href="#home "
@@ -76,40 +76,37 @@ const Header = () => {
 
 
 
-          <div className="d-flex" >
-            <Link to='/cart'>
-              <div className={styles.cart}>
-                <i className={styles.icon + " bi bi-cart3"}>
-                   {itemList.length > 0 && <div className={styles.counter}>{counter < 100 ? counter: '99+'}</div>}
-                   </i>
-                 </div>
-            </Link>
-            <AuthorizationModal />
-          </div>
+   
+            <div className="d-flex">
+              <Link to='/cart'>
+                <div className={styles.cart}>
+                  <i className={styles.icon + " bi bi-cart3"}>
+                     {itemList.length > 0 && <div className={styles.counter}>{counter < 100 ? counter: '99+'}</div>}
+                     </i>
+                   </div>
+              </Link>
+              <AuthorizationModal />
+                      
+              
+                        {isAuth && (
+              <Button
+                variant="dark"
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  dispatch(setIsAuth(false));
+                  dispatch(setCartId(null));
+                }}
+                style={{ fontSize: "16px", width: "120px", height: "40px" }}
+                size="sm"
+              >
+                <i className="bi bi-box-arrow-left me-1"></i>Выйти
+              </Button>
+                        )}
+            </div>
 
-          {isAuth && (
-            <Button
-              variant="dark"
-              onClick={() => {
-                localStorage.removeItem("token");
-                dispatch(setIsAuth(false));
-                dispatch(setCartId(null));
-              }}
-              style={{ fontSize: "16px" }}
-              size="sm"
-            >
-              <i className="bi bi-box-arrow-left me-1"></i>Выйти
-            </Button>
-          )}
 
 
-
-          {/* <Link to='http://localhost:1337/admin'>
-
-          <Button variant='dark' className="fs-5">Админка</Button>
-        </Link> */}
-
-          {/* {!isAuth && <RegistrationModal />} */}
+         
         </Container>
       </Navbar>
       <HeaderMenu />

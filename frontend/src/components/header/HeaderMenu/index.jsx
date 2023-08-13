@@ -31,7 +31,7 @@ function HeaderMenu() {
 
 
   return (
-    <div className="bg-dark">
+    <div className={"bg-dark " + styles.root} >
 
 
 

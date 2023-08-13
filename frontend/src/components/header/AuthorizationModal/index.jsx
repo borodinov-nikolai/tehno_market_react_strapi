@@ -123,7 +123,7 @@ return (
 
        {/* Отображение кнопки в Хедере */}
 
-      {!isAuth && <Button style={{ fontSize: '16px' }} size='sm' variant={'outline-dark '}  onClick={handleShow}>
+      {!isAuth && <Button style={{ fontSize: '16px', width: "120px", height: "40px" }} size='sm' variant={'outline-dark '}  onClick={handleShow}>
       <i className="bi bi-box-arrow-in-right"></i> Войти
       </Button>}
 
