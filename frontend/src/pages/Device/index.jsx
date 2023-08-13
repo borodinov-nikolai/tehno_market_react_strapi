@@ -42,8 +42,8 @@ const Device = () => {
     }, []
 
 
-
     )
+    console.log(deviceId)
 
   console.log(device)
     return (
@@ -63,7 +63,7 @@ const Device = () => {
 
             <div className={price_holder} >
                 <div className={price}>Цена: {device.price}р </div>
-                <Button onClick={() => dispatch(addCartItem({deviceId, name: device.name, price: device.price, imgURL: device.imgURL }))} className={btn} variant="dark" > Закакзать</Button>
+                <Button onClick={() => dispatch(addCartItem({id:deviceId, name: device.name, price: device.price, imgURL: device.imgURL }))} className={btn} variant="dark" >В корзину</Button>
             </div>
 
 
