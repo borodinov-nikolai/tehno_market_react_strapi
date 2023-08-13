@@ -53,7 +53,7 @@ const Header = () => {
               className="ms-5"
             >
               Каталог
-            </Nav.Link>
+            </Nav.Link >
             <Nav.Link
               href="#home "
               className="ms-5"

@@ -3,18 +3,51 @@
     padding-top: 50px;
 
 
-    .inner {
+    .description_holder {
 
-        display: flex;
+         display: flex;
+         justify-content: space-between;
 
         .img {
             height: 500px;
         }
 
+   .description {
+      padding: 0 40px;
+      margin-right: 20vh;;
 
-        .title {
-            margin-left: 80px;
-        }
+    .title {
+     
+        font-size: 50px;
+    }
+    .description_text {
+        margin-top: 80px;
+        white-space: pre-line;
+        font-size: 24px;
+    }
+
+   }
+       
+    }
+
+    .price_holder {
+          margin: 100px 0;
+          display: flex;
+          justify-content: space-between;
+          align-items: end;
+         
+       .price {
+         font-size: 70px;
+       }
+
+       .btn {
+        height: 60px;
+        width: 160px;
+        font-size: 28px;
+        margin-right: 5vh;
+       }
+
+         
     }
 
 }

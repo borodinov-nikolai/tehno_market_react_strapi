@@ -3,13 +3,14 @@ import $api from '../../http'
 import { useParams } from 'react-router-dom'
 import Container from 'react-bootstrap/esm/Container';
 import styles from './Device.module.scss';
-
+import Button from "react-bootstrap/Button"
+ 
 const Device = () => {
 
      const [device, setDevice] = React.useState('');    
 
     const { name } = useParams();
-    const {root, inner, img, title} = styles;
+    const {root, inner, img, title, description_holder, price_holder, price , description, description_text, btn}= styles;
     React.useEffect(() => {
 
               
@@ -39,18 +40,33 @@ const Device = () => {
 
     }, []
 
-
-
+     
+    
     )
-
+    
+    console.log(device.description)
     return (
         <Container className={root} >
             <div className={inner} >
 
-            <img className={img} src={device.imgURL} alt="" />
+            <div className={description_holder} >
+                <img className={img} src={device.imgURL} alt="" />
+                <div className={description} >
 
-            <div className={title} >{device.name}  </div>
+                <h2 className={title}>{device.name}</h2>
+                <p className={description_text} >{device.description}</p>
+                </div>
             </div>
+            </div>
+
+
+            <div className={price_holder} >
+                  <div className={price}>Цена: {device.price}р </div>
+                  <Button className={btn} variant="dark" > Закакзать</Button>
+            </div>
+                
+
+
         </Container>
     )
 }
