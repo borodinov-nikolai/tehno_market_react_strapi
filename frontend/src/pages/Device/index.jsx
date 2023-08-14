@@ -12,7 +12,6 @@ const Device = () => {
     const [deviceId, setDeviceId] = React.useState('');
     const [device, setDevice] = React.useState('');
     const { name } = useParams();
-    const { root, inner, img, title, description_holder, price_holder, price, description, description_text, btn } = styles;
     React.useEffect(() => {
 
 
@@ -47,23 +46,23 @@ const Device = () => {
 
   console.log(device)
     return (
-        <Container className={root} >
-            <div className={inner} >
+        <Container className={styles.root} >
+            <div className={styles.inner} >
 
-                <div className={description_holder} >
-                    <img className={img} src={device.imgURL} alt="" />
-                    <div className={description} >
+                <div className={styles.description_holder} >
+                    <img className={styles.img} src={device.imgURL} alt="" />
+                    <div className={styles.description} >
 
-                        <h2 className={title}>{device.name}</h2>
-                        <p className={description_text} >{device.description}</p>
+                        <h2 className={styles.title}>{device.name}</h2>
+                        <p className={styles.description__text} >{device.description}</p>
                     </div>
                 </div>
             </div>
 
 
-            <div className={price_holder} >
-                <div className={price}>Цена: {device.price}р </div>
-                <Button onClick={() => dispatch(addCartItem({id:deviceId, name: device.name, price: device.price, imgURL: device.imgURL }))} className={btn} variant="dark" >В корзину</Button>
+            <div className={styles.price_holder} >
+                <div className={styles.price}>Цена: {device.price}р </div>
+                <Button onClick={() => dispatch(addCartItem({id:deviceId, name: device.name, price: device.price, imgURL: device.imgURL }))} className={styles.btn} variant="dark" >В корзину</Button>
             </div>
 
 

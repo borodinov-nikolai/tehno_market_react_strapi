@@ -1,8 +1,27 @@
 .root {
+    
+
+    
 
 
+     .hamburgerBtn {
+        display: none;
+     }
 
-     
+.navigation {
+    margin-left: 40px;
+}
+    
+
+   .logo {
+    margin-left: 20px;
+    img {
+        display: block;
+        max-height: 30px;
+        width: auto;
+
+    }
+   }
 
 
     .cart {
@@ -37,13 +56,64 @@
     }
 
 
-     @media(max-width: 992px) {
+   
+
+
+    
+}
+
+
+@media(max-width: 992px) {
+    .root {
+
         .navigation {
             display: none !important;
         }
+        .hamburgerBtn {
+            display: block;
+      }
      }
 
+ }
+
+
+ 
+
+ @media(max-width: 400px) {
+    .root {
+
+        .logo {
+            
+        
+            display: none;
+          }
+       
+        }
 }
 
 
 
+
+.Offcanvas {
+    background-color : black !important;
+    color: white !important;
+
+         .OffcanvasTitle {
+            padding-left: 23px;
+            width: 100%;
+            text-align: center;
+         }
+
+        a {
+            color: white !important;
+            li {
+                text-align: center;
+                margin-top: 20px;
+                font-size: 24px;
+
+                &:hover {
+                    background: rgb(49, 49, 49);
+                }
+            }
+        }
+ } 

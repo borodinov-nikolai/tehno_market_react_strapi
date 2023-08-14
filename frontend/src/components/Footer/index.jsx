@@ -18,11 +18,11 @@ function Footer() {
                     Бородинов Николай Владимирович</div>
 
                 <div className="footer__year">2023г.</div>
-                <div className="footer__social">
+                {/* <div className="footer__social">
                     <img src={facebook} alt="" className="footer__social-img"/>
                     <img src={twitter} alt="" className="footer__social-img"/>
                     <img src={instagramm} alt="" className="footer__social-img"/>
-                </div>
+                </div> */}
             </div>
         </Container>
     </footer>

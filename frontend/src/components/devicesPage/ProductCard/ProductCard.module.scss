@@ -14,13 +14,18 @@
 
   }
 
-  @media(max-width: 576px) {
-   
-    
-    img {
- height: 350px !important;
-}
-  
-}
+
 }
 
+
+@media(max-width: 576px) {
+  .root {
+    width: 350px;
+    margin: 10px auto;
+  }
+   
+   img {
+height: 300px !important;
+}
+ 
+}
