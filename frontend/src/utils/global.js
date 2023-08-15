@@ -55,7 +55,7 @@ const global = {
     async getCartFromServer(cartId, $api, dispatch, setItemList, setTotalPrice, setCartLoad){
       if (cartId) {
           try {
-           await $api.get(`users/me?populate[cart][populate]=*`)
+           await $api.get(`/users/me?populate[cart][populate]=*`)
            .then((response =>  {
              const {data} = response
                   

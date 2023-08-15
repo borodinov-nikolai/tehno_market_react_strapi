@@ -15,7 +15,7 @@ function OrderModal() {
     const [phoneNumber, setPhoneNumber] = React.useState('');
     const [adress, setAdress] = React.useState('');
     const [message, setMessage] = React.useState('');
-    const [orderSend, setOderSend] = React.useState(false);
+    const [orderSend, setOrderSend] = React.useState(false);
     const { itemList, totalPrice } = useSelector((state) => state.cart)
     const dispatch = useDispatch();
     const { root } = styles;
@@ -34,7 +34,7 @@ function OrderModal() {
       
         dispatch(setItemList([]));
         dispatch(setTotalPrice(0));
-        setTimeout(()=> setOderSend(false), 1000 );
+        setTimeout(()=> setOrderSend(false), 1000 );
     };
 
     const handleShow = () => setShow(true);
@@ -58,7 +58,7 @@ function OrderModal() {
                 })
 
                 setMessage('');
-                setOderSend(true);
+                setOrderSend(true);
 
 
             } catch (e) {

@@ -57,7 +57,7 @@ const getDevices = async()=>{
           sort: {
            0: sort
          },
-        
+          populate: "*"
        }
       })
      .then(res=>{setDevices(res.data.data);
@@ -197,7 +197,7 @@ getBrands();
         <div  className='row mt-5 gx-4 gy-4'>
 
         {devices.map(({id, attributes})=>{
-        return <ProductCard key={id} id={id} name={attributes.name} price={attributes.price} imgURL={attributes.imgURL}/>
+        return <ProductCard key={id} id={id} name={attributes.name} price={attributes.price} image={attributes.image}/>
         })}
         </div>
       

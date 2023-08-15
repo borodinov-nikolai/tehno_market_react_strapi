@@ -29,11 +29,6 @@
         "images"
       ]
     },
-    "imgURL": {
-      "type": "string",
-      "required": true,
-      "unique": false
-    },
     "brand": {
       "type": "relation",
       "relation": "oneToOne",

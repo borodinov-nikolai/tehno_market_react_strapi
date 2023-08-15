@@ -43,10 +43,10 @@ if(itemList.length < 1) {
        <div className={cartWrapper}>
            <div className={itemHolder} >
 
-            {itemList.map(({id, name, imgURL, price}, index)=> {
+            {itemList.map(({id, name, image, price}, index)=> {
               return ( <div key={id} className={cartItem}> 
                  <div className={imgHolder}>
-                    <img src={imgURL} alt="" />
+                    <img src={process.env.REACT_APP_IMGURL + image} alt="" />
                     </div>
                  <div className={cartTitle} >{name}</div>
                  {/* <p>..............................................................................................................................

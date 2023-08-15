@@ -5,7 +5,7 @@ import styles from './ProductCard.module.scss';
 import {useDispatch} from 'react-redux';
 import { addCartItem } from '../../../redux/slices/cartSlice';
 
-const ProductCard = ({id, name, price, imgURL }) => {
+const ProductCard = ({id, name, price, image }) => {
    const dispatch = useDispatch();
      
      const toDescription = (event) => {
@@ -14,11 +14,10 @@ const ProductCard = ({id, name, price, imgURL }) => {
       if(!event.target.closest('button'))
       {
 
-        window.location.assign(`http://localhost:3000/devices/${name}`)
+        window.location.assign(`${process.env.REACT_APP_URL}/devices/${name}`)
       }
       
      }
-
 
 
 
@@ -29,12 +28,12 @@ const ProductCard = ({id, name, price, imgURL }) => {
      
         <Card onClick={(event)=>toDescription(event)}  onMouseEnter={()=>{setAnimation("animate__animated animate__headShake")}} onMouseLeave={()=>setAnimation("")}  className={animation} data-item= 'item'>
           <Card.Body>
-            <div className='d-flex justify-content-center' ><Card.Img variant="top" src={imgURL} style={{height:'220px', width: 'auto'}} /></div>
+            <div className='d-flex justify-content-center' ><Card.Img variant="top" src={process.env.REACT_APP_IMGURL + image.data.attributes.url} style={{height:'220px', width: 'auto'}} /></div>
             <Card.Title className='mt-2' >{name}</Card.Title>
             <Card.Text >
               Цена: {price}p
             </Card.Text>
-            <div className='d-flex justify-content-end'><Button onClick={()=>dispatch(addCartItem({id, name, price, imgURL}))} className={styles.button} variant="primary">В корзину</Button></div>
+            <div className='d-flex justify-content-end'><Button onClick={()=>dispatch(addCartItem({id, name, price, image: image.data.attributes.url}))} className={styles.button} variant="primary">В корзину</Button></div>
           </Card.Body>
         </Card>
      
