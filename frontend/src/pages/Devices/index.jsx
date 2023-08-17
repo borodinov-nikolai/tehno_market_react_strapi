@@ -11,13 +11,14 @@ import Search from '../../components/devicesPage/Search';
 import {useNavigate} from 'react-router-dom';
 import qs from 'qs';
 import styles from "./Devices.module.scss";
-
+import { useLocation } from 'react-router-dom';
 
 
 const Devices = () => {
   const [devices, setDevices] = React.useState([]);
   const [brands, setBrands] = React.useState([]);
   const isSearch = React.useRef(false);
+  const location = useLocation();
   const sort = useSelector((state)=> state.filters.sort);
   const page = useSelector((state)=> state.pagination.page);
   const pageCount = useSelector((state)=> state.pagination.pageCount);
@@ -131,7 +132,7 @@ let brand = !brandId ? null : {id: brandId};
   navigate(`?${queryString}`);
 
 
-},[brandId, typeId, sort, page, search, pageCount, window.location.pathname])
+},[brandId, typeId, sort, page, search, pageCount, location])
 
 
 

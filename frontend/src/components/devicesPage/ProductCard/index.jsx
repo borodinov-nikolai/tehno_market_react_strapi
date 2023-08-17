@@ -4,17 +4,20 @@ import Card from 'react-bootstrap/Card';
 import styles from './ProductCard.module.scss';
 import {useDispatch} from 'react-redux';
 import { addCartItem } from '../../../redux/slices/cartSlice';
+import { useNavigate } from 'react-router-dom';
 
 const ProductCard = ({id, name, price, image }) => {
    const dispatch = useDispatch();
-     
-     const toDescription = (event) => {
+   const navigate = useNavigate();
+
+     const toDescription = (event, name) => {
 
 
       if(!event.target.closest('button'))
       {
 
-        window.location.assign(`${process.env.REACT_APP_URL}/devices/${name}`)
+       
+        navigate(`/devices/${name}`);    
       }
       
      }
@@ -26,7 +29,7 @@ const ProductCard = ({id, name, price, image }) => {
   return (
    <div className={"col-xl-3 col-lg-4 col-sm-6 col-xs-12 " + styles.root} >
      
-        <Card onClick={(event)=>toDescription(event)}  onMouseEnter={()=>{setAnimation("animate__animated animate__headShake")}} onMouseLeave={()=>setAnimation("")}  className={animation} data-item= 'item'>
+        <Card onClick={(event)=>toDescription(event, name)}  onMouseEnter={()=>{setAnimation("animate__animated animate__headShake")}} onMouseLeave={()=>setAnimation("")}  className={animation} data-item= 'item'>
           <Card.Body>
             <div className='d-flex justify-content-center' ><Card.Img variant="top" src={process.env.REACT_APP_IMGURL + image.data.attributes.url} style={{height:'220px', width: 'auto'}} /></div>
             <Card.Title className='mt-2' >{name}</Card.Title>
