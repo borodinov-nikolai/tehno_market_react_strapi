@@ -8,17 +8,14 @@ import {setBrandId,  setFilters } from '../../redux/slices/filtersSlice'
 import Sort from '../../components/devicesPage/Sort';
 import { setPageCount, setPage, setPagination} from '../../redux/slices/paginationSlice';
 import Search from '../../components/devicesPage/Search';
-import {useNavigate} from 'react-router-dom';
-import qs from 'qs';
+  import qs from 'qs';
 import styles from "./Devices.module.scss";
-import { useLocation } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 
 
 const Devices = () => {
   const [devices, setDevices] = React.useState([]);
   const [brands, setBrands] = React.useState([]);
-  const isSearch = React.useRef(false);
-  const location = useLocation();
   const sort = useSelector((state)=> state.filters.sort);
   const page = useSelector((state)=> state.pagination.page);
   const pageCount = useSelector((state)=> state.pagination.pageCount);
@@ -29,7 +26,6 @@ const Devices = () => {
   
 
 //Функция для отправки запросов на сервер
-
 
 
 
@@ -62,7 +58,7 @@ const getDevices = async()=>{
        }
       })
      .then(res=>{setDevices(res.data.data);
-      dispatch(setPageCount(res.data.meta.pagination.pageCount));
+    dispatch(setPageCount(res.data.meta.pagination.pageCount));
     })
   
     } catch(error) {
@@ -72,7 +68,6 @@ const getDevices = async()=>{
 }
   
 
-  
 
 
 
@@ -81,14 +76,19 @@ const getDevices = async()=>{
 //Если есть строка поиска берем из нее данные фильтров
 
 React.useEffect(()=>{
-  if (window.location.search){
+    console.log('выполнилось 1')
     const {filters, pagination, sort} = qs.parse(window.location.search.substring(1));
     dispatch(setFilters({...filters, sort}));
     dispatch(setPagination(pagination));
-    isSearch.current = true
-    }
+    
 
 },[])
+
+
+
+
+
+
 
 
 
@@ -97,42 +97,44 @@ React.useEffect(()=>{
 
 React.useEffect(()=>{
 
-if(!isSearch.current) {
   
      getDevices()  
+     
+  
 
-
-}
-
-isSearch.current = false
-
-
-let brand = !brandId ? null : {id: brandId};
-
-  const queryString = qs.stringify({
-    pagination:{
-      page: page,
-      pageCount: pageCount
-    },
-    filters: {
-      name: {
-        $containsi: search
+  let brand = !brandId ? null : {id: brandId};
+  
+    const queryString = qs.stringify({
+      pagination:{
+        page: page,
+        pageCount: pageCount
       },
-     brand: brand,
-     type: {
-      id: typeId
-     }
-    },
-    sort: {
-       0:sort
-    }
+      filters: {
+        name: {
+          $containsi: search
+        },
+       brand: brand,
+       type: {
+        id: typeId
+       }
+      },
+      sort: {
+         0:sort
+      }
+  
+    })
+    navigate(`?${queryString}`);
+    console.log("выполнилось")
 
-  })
-
-  navigate(`?${queryString}`);
 
 
-},[brandId, typeId, sort, page, search, pageCount, location])
+
+},[brandId, typeId, sort, page, search, pageCount])
+
+
+
+
+
 
 
 

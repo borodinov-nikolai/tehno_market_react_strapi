@@ -2,11 +2,16 @@ import {createSlice} from '@reduxjs/toolkit'
 
 
 
+
+
+
+
 const initialState = {
     userId: '',
     cartId: null,
     userName: '',
-    isAuth: false
+    isAuth: false,
+
 }
 
 
@@ -26,6 +31,7 @@ export const userSlice = createSlice({
         }
     }
 })
+ 
 
 export const {setIsAuth, setUser, setCartId} = userSlice.actions
 
