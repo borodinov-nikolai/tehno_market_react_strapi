@@ -11,7 +11,7 @@ import { setCartId, setIsAuth } from "../../redux/slices/userSlice";
 import styles from './Header.module.scss'
 import HeaderMenu from "./HeaderMenu";
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { setBrandId, setTypeId } from "../../redux/slices/filtersSlice";
+import { setBrandId, setTypeId, resetFilters } from "../../redux/slices/filtersSlice";
 import $api from "../../http";
 
 const Header = () => {
@@ -28,22 +28,23 @@ const Header = () => {
 
   const [types, setTypes] = React.useState([]);
 
-  
- 
-  React.useEffect(()=>{
-    const getTypes = async ()=> {
+
+
+
+  React.useEffect(() => {
+    const getTypes = async () => {
       try {
 
         await $api.get('/types')
-      .then(res=> setTypes(res.data.data))
-      } catch(error) {
+          .then(res => setTypes(res.data.data))
+      } catch (error) {
         console.error('ошибка', error.response)
       }
-  };
- 
- getTypes();
+    };
 
-},[]) 
+    getTypes();
+
+  }, [])
 
 
 
@@ -52,27 +53,27 @@ const Header = () => {
 
   return (
     <>
-      <Navbar  bg="light" data-bs-theme="light">
+      <Navbar bg="light" data-bs-theme="light">
         <Container className={styles.root}>
 
 
 
 
-        <Button className={"px-2 py-0 " + styles.hamburgerBtn} variant="dark" onClick={handleShow}>
-          <i className="bi bi-list fs-2 "></i>
+          <Button className={"px-2 py-0 " + styles.hamburgerBtn} variant="dark" onClick={handleShow}>
+            <i className="bi bi-list fs-2 "></i>
           </Button>
 
-          <Offcanvas data-bs-theme = 'dark' show={show} onHide={handleClose} className={styles.Offcanvas} >
+          <Offcanvas data-bs-theme='dark' show={show} onHide={handleClose} className={styles.Offcanvas} >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title className={styles.OffcanvasTitle} >Категории</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body >
-            
-            {types.map(({attributes, id})=> {
-       return  <Link key={id} style={{textDecoration: 'none'}} to={`${process.env.REACT_APP_URL}?pagination%5Bpage%5D=1&pagination%5BpageCount%5D=2&filters%5Bname%5D%5B%24containsi%5D=&filters%5Bbrand%5D=&filters%5Btype%5D%5Bid%5D=${id}&sort%5B0%5D=price%3Aasc`}>
-         <li  onClick={()=>{dispatch(setTypeId(id)); dispatch(setBrandId(null)); handleClose() } } className={styles.menuItem}> {attributes.name} </li>
-       </Link>
-          }) }
+
+              {types.map(({ attributes, id }) => {
+                return <Link key={id} style={{ textDecoration: 'none' }} to={`${process.env.REACT_APP_URL}?pagination%5Bpage%5D=1&pagination%5BpageCount%5D=2&filters%5Bname%5D%5B%24containsi%5D=&filters%5Bbrand%5D=&filters%5Btype%5D%5Bid%5D=${id}&sort%5B0%5D=price%3Aasc`}>
+                  <li onClick={() => { dispatch(setTypeId(id)); dispatch(setBrandId(null)); handleClose() }} className={styles.menuItem}> {attributes.name} </li>
+                </Link>
+              })}
 
             </Offcanvas.Body>
           </Offcanvas>
@@ -81,16 +82,16 @@ const Header = () => {
 
 
           <Link to="/" className={"text-decoration-none"} >
- 
-              <Navbar.Brand className={styles.logo} >
-                <img
-                  src={logo}
-                  className="d-inline-block"
-                  alt="logo"
-                />{" "}
-                Техно маркет
-              </Navbar.Brand>
-          
+
+            <Navbar.Brand onClick={() => dispatch(resetFilters())} className={styles.logo} >
+              <img
+                src={logo}
+                className="d-inline-block"
+                alt="logo"
+              />{" "}
+              Техно маркет
+            </Navbar.Brand>
+
           </Link>
 
 
