@@ -76,10 +76,13 @@ const getDevices = async()=>{
 //Если есть строка поиска берем из нее данные фильтров
 
 React.useEffect(()=>{
-    console.log('выполнилось 1')
-    const {filters, pagination, sort} = qs.parse(window.location.search.substring(1));
-    dispatch(setFilters({...filters, sort}));
-    dispatch(setPagination(pagination));
+    if(window.location.search){
+      console.log('выполнилось 1')
+      const {filters, pagination, sort} = qs.parse(window.location.search.substring(1));
+      dispatch(setFilters({...filters, sort}));
+      dispatch(setPagination(pagination));
+
+    }
     
 
 },[])

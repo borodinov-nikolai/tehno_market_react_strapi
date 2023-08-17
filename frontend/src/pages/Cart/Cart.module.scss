@@ -357,25 +357,26 @@ i {
           align-items: center;
 
         img {
-            height: 50px !important;
+            height: 100px !important;
         }
     }
 
     .cartTitle {
         text-align: start;
-       font-size: 10px !important;
+       font-size: 20px !important;
      width: 200px;
      margin-left: 0px;
      
     }
     .counterHolder {
-    margin-right: 0px;
+        margin-right: 5px !important;
+    margin-left: 5px !important;
     display: flex;
     align-items: center;
     
     .counter {
         margin: 0 8px;
-        font-size: 20px !important;
+        font-size: 24px !important;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -384,13 +385,14 @@ i {
     }
     
     i {
+           font-size: 20px;
           cursor: pointer;
     }
     }
     
     .itemPrice {
-    margin-right: 0px !important;
-    font-size: 10px;
+        display: none;
+
     
     }
     

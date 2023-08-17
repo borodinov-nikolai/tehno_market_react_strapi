@@ -23,6 +23,7 @@ export const filtersSlice = createSlice({
         },
         setSearch: (state, action)=>{
             state.search = action.payload
+            state.brandId = null
         },
         setSort: (state, action)=>{
             state.sort = action.payload
