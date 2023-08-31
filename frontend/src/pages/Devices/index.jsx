@@ -77,7 +77,6 @@ const getDevices = async()=>{
 
 React.useEffect(()=>{
     if(window.location.search){
-      console.log('выполнилось 1')
       const {filters, pagination, sort} = qs.parse(window.location.search.substring(1));
       dispatch(setFilters({...filters, sort}));
       dispatch(setPagination(pagination));
